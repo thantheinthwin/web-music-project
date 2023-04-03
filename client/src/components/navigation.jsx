@@ -43,7 +43,6 @@ const Navigation = ({user}) => {
             </div>     
           </div>     
           <img src={user?.user?.imageURL} alt="profile pic" onClick={()=>setIsMenu(!isMenu)} referrerPolicy='no-referrer' className='w-12 min-w-[44px] rounded-lg object-cover shadow-lg filter hover:contrast-75'/>
-          
           {isMenu && (
             <motion.div 
             initial={{opacity : 0, y : -50}} 

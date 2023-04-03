@@ -14,7 +14,6 @@ import { useStateValue } from '../context/StateProvider'
 import { actionType } from '../context/reducer'
 
 const Login = ({setAuth}) => {
-  
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
@@ -67,7 +66,6 @@ const Login = ({setAuth}) => {
     <div className='relative w-screen h-screen'>
       <div className='absolute inset-0 flex items-center justify-center p-4'>
           <div className="grid grid-flow-col grid-rows-3 gap-4 p-12 bg-white rounded-md shadow-xl lg:p-4 lg:max-w-4xl xl:max-w-6xl backdrop-blur-md">
-            
             <div className="hidden col-span-1 row-span-3 rounded-l-md lg:flex bg-blue-50">
               <img src={loginPic} alt="loginPic" className='object-scale-down w-96'/>
             </div>
