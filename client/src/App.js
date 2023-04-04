@@ -43,7 +43,7 @@ const App = () => {
 
     return (
         <AnimatePresence mode="wait">
-            <div className="flex items-center justify-center bg-sky-blue-50">
+            <div className="flex items-center justify-center">
                 <Routes>
                     <Route path="/*" element={<LandingPage/>}/>
                     <Route path="/home" element={<Home />}/>

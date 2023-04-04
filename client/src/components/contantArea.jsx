@@ -1,6 +1,9 @@
 import React from 'react'
+import { useStateValue } from '../context/StateProvider'
 
-const contantArea = ({user}) => {
+const ContantArea = () => {
+  const [{user}, dispatch] = useStateValue();
+
   return (
     <div className='w-full'>
       Content Area
@@ -8,4 +11,4 @@ const contantArea = ({user}) => {
   )
 }
 
-export default contantArea
+export default ContantArea

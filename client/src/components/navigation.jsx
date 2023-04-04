@@ -3,15 +3,29 @@ import React, { useState } from 'react'
 
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import { BiCrown, BiUser } from 'react-icons/bi'
+import { TfiMicrophone } from 'react-icons/tfi'
 
 import { NavLink, useNavigate } from 'react-router-dom';
 import { app } from '../config/firebase.config';
 import { motion } from 'framer-motion';
+import { useStateValue } from '../context/StateProvider';
 
-const Navigation = ({user}) => {  
+const Navigation = () => {  
+  const [{user}, dispatch] = useStateValue();
+
   const username = user?.user?.name;
   const subscription = user?.user?.subscription;
   const email = user?.user?.email;
+  const role = user?.user?.role;
+
+  let userIcon ;
+
+  // Conditional Rendering to distinguish between artist and user
+  if(role === "member"){
+    userIcon = <BiUser/>
+  }else{
+    userIcon = <TfiMicrophone/>
+  }
 
   const navigate = useNavigate();
 
@@ -27,7 +41,7 @@ const Navigation = ({user}) => {
   }
 
   return (
-    <div className='flex justify-between w-full p-2 text-blue-900 shadow-md'>
+    <div className='flex justify-between w-full p-2 text-blue-900 shadow-md bg-sky-blue-50'>
         <div className='flex gap-1'>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineLeft/></div>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineRight/></div>
@@ -39,7 +53,8 @@ const Navigation = ({user}) => {
           <div className='flex flex-col gap-1'>
             <p>{username}</p>
             <div className='flex flex-row-reverse text-xl'>
-              {(subscription) ? <BiCrown/>: <BiUser/>}
+              {userIcon}
+              {(subscription) ? <BiCrown/>: <i></i>}
             </div>     
           </div>     
           <img src={user?.user?.imageURL} alt="profile pic" onClick={()=>setIsMenu(!isMenu)} referrerPolicy='no-referrer' className='w-12 min-w-[44px] rounded-lg object-cover shadow-lg filter hover:contrast-75'/>

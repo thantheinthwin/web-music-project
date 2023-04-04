@@ -13,8 +13,8 @@ const Home = () => {
       <div className='flex flex-1 overflow-y-hidden'>
         <SideBar />
         <div className='flex-col w-full'>
-          <Navigation user={user}/>
-          <ContantArea user={user} />
+          <Navigation/>
+          <ContantArea/>
         </div>
       </div>
     </div>

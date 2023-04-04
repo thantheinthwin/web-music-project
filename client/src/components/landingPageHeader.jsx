@@ -1,15 +1,34 @@
 import React from 'react'
 import { Logo } from '../assets/img'
 import { NavLink } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const landingPageHeader = () => {
   return (
-    <div className='flex items-center justify-between w-full p-2 shadow-md'>
-      <img src={Logo} className='w-12'/>
-      <div className='grid grid-flow-col gap-2'>
-        <NavLink to={'/signup'} className='p-2 border-2 rounded-xl border-blue-950 text-blue-950'>Sign Up</NavLink>
-        <NavLink to={'/login'} className='px-4 py-2 bg-blue-300 rounded-xl'>Login</NavLink>
-      </div>
+    <div className='flex items-center justify-around w-full p-2 font-bold uppercase shadow-md'>
+      <motion.div 
+      initial={{opacity:0, x:-30}}
+      animate={{opacity:1, x:0}}
+      transition={{duration: 2}}
+      className='grid items-center grid-flow-col gap-6'>
+        <img src={Logo} className='w-12'/>
+        <p className='text-2xl font-bold cursor-default'>S!NG</p>
+      </motion.div>
+      <motion.div 
+      initial={{opacity:0, x:30}}
+      animate={{opacity:1, x:0}}
+      transition={{duration: 2}}
+      className='items-center hidden grid-flow-col gap-6 mr-3 divide-x-2 lg:grid lg:flex'>
+        <div className='grid grid-flow-col gap-6'>
+          <NavLink className='hover:text-blue-900'>About Us</NavLink>
+          <NavLink className='hover:text-blue-900'>Support</NavLink>
+          <NavLink className='hover:text-blue-900'>Premium</NavLink>
+        </div>
+        <div className='grid grid-flow-col gap-2 px-4'>
+          <NavLink to={'/signup'} className='p-2 border-2 border-transparent hover:text-blue-900'>Sign in</NavLink>
+          <NavLink to={'/login'} className='p-2 transition-all duration-300 ease-in-out border-2 border-black rounded-lg hover:bg-blue-900 hover:border-blue-900 hover:text-white'>Sign up</NavLink>
+        </div>
+      </motion.div>
     </div>
   )
 }
