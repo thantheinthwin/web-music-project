@@ -73,7 +73,7 @@ const Login = ({setAuth}) => {
             <div className="grid col-span-2 row-span-2 space-y-10 lg:w-96 justify-items-stretch">
               <div className="grid gap-2 mx-auto text-center lg:pt-12">
                 <div className='flex justify-center w-full'>
-                  <img src={Logo} alt="logo" className='w-1/4 lg:w-1/6'/>
+                  <img src={Logo} alt="https://storyset.com/user" className='w-1/4 lg:w-1/6'/>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tight text-gray-900 lg:text-4xl">Log In</h2>
                 <p className="mt-2 text-sm leading-4 text-gray-600 lg:text-base">Music for everyone.<br/> Have some fun.</p>

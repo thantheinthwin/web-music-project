@@ -18,7 +18,7 @@ const landingPageHeader = () => {
       initial={{opacity:0, x:30}}
       animate={{opacity:1, x:0}}
       transition={{duration: 2}}
-      className='items-center hidden grid-flow-col gap-6 mr-3 divide-x-2 lg:grid lg:flex'>
+      className='items-center hidden grid-flow-col gap-6 mr-3 divide-x-2 lg:grid'>
         <div className='grid grid-flow-col gap-6'>
           <NavLink className='hover:text-blue-900'>About Us</NavLink>
           <NavLink className='hover:text-blue-900'>Support</NavLink>
