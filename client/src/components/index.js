@@ -8,3 +8,4 @@ export { default as navigation } from './navigation';
 export { default as Browse } from './browse';
 export { default as Subscribe } from './subscribe';
 export { default as Upload } from './upload';
+export { default as Marquee } from './Marquee';

@@ -36,7 +36,15 @@ const App = () => {
                     user: null,
                 })
                 window.localStorage.setItem("auth", "false");
-                navigate("/login");
+                console.log(window.location);
+                
+                // Restricting the user from gaining access to the main page without logging in
+                const names = ['/home', '/browse', '/subscribe', '/upload'];
+
+                if(names.indexOf(window.location.pathname) !== -1){
+                    navigate('/login');
+                }
+                
             }
         })
     }, []);
@@ -45,7 +53,7 @@ const App = () => {
         <AnimatePresence mode="wait">
             <div className="flex items-center justify-center">
                 <Routes>
-                    <Route path="/*" element={<LandingPage/>}/>
+                    <Route path="/" element={<LandingPage/>}/>
                     <Route path="/home" element={<Home />}/>
                     <Route path="/browse" element={<Browse />}/>
                     <Route path="/upload" element={<Upload />}/>

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 const landingPageHeader = () => {
   return (
-    <div className='flex items-center justify-around w-full p-2 font-bold uppercase shadow-md'>
+    <nav className='absolute z-50 flex items-center justify-around w-full p-2 font-bold uppercase bg-white shadow-md'>
       <motion.div 
       initial={{opacity:0, x:-30}}
       animate={{opacity:1, x:0}}
@@ -20,16 +20,16 @@ const landingPageHeader = () => {
       transition={{duration: 2}}
       className='items-center hidden grid-flow-col gap-6 mr-3 divide-x-2 lg:grid'>
         <div className='grid grid-flow-col gap-6'>
-          <NavLink className='hover:text-blue-900'>About Us</NavLink>
-          <NavLink className='hover:text-blue-900'>Support</NavLink>
-          <NavLink className='hover:text-blue-900'>Premium</NavLink>
+          <NavLink className='hover:text-blue-900' to={'/about'}>About Us</NavLink>
+          <NavLink className='hover:text-blue-900' to={'/support'}>Support</NavLink>
+          <NavLink className='hover:text-blue-900' to={'/premium'}>Premium</NavLink>
         </div>
         <div className='grid grid-flow-col gap-2 px-4'>
           <NavLink to={'/signup'} className='p-2 border-2 border-transparent hover:text-blue-900'>Sign in</NavLink>
           <NavLink to={'/login'} className='p-2 transition-all duration-300 ease-in-out border-2 border-black rounded-lg hover:bg-blue-900 hover:border-blue-900 hover:text-white'>Sign up</NavLink>
         </div>
       </motion.div>
-    </div>
+    </nav>
   )
 }
 
