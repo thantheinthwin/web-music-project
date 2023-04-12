@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Img1, Img2, Img3, Img4, Img5 } from '../assets/img';
 
 import LandingPageHeader from './landingPageHeader'
-import Marquee from './Marquee';
+import Banner from './Banner';
 
 const landingPage = () => {
   const container = {
@@ -53,7 +53,7 @@ const landingPage = () => {
     <div className='items-center w-full'>
       <LandingPageHeader/>
       <div className='relative'>
-        <Marquee title={"Hello"} />
+        <Banner title={"Welcome to SING !"} />
         <motion.div className='z-0 h-screen'
         variants={container}
         initial='hidden'
@@ -63,7 +63,7 @@ const landingPage = () => {
           <motion.img src={Img2} alt="Img2" className='absolute hidden w-1/5 bottom-20 left-20 lg:flex' variants={item}/>
           <motion.img src={Img3} alt='Img3' className='absolute hidden w-1/5 top-24 right-20 lg:flex' variants={item}/>
           <motion.img src={Img4} alt="Img4" className='absolute hidden w-1/5 right-24 bottom-16 lg:flex' variants={item}/>
-          <motion.img src={Img5} alt="Img5" className='absolute top-0 bottom-0 left-0 right-0 w-2/5 m-auto' variants={itemMain}/>
+          <motion.img src={Img5} alt="Img5" className='absolute top-0 bottom-0 left-0 right-0 w-full m-auto lg:w-2/5' variants={itemMain}/>
         </motion.div>
         
       </div>

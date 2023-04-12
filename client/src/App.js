@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Browse, Home, LandingPage, Login, Subscribe, Upload } from "./components";
+import { Browse, Home, LandingPage, Login, SignUp, Subscribe, Upload } from "./components";
 import { AnimatePresence } from 'framer-motion';
 
 import {app} from './config/firebase.config';
@@ -17,6 +17,8 @@ const App = () => {
 
     const [auth, setAuth] = useState(false || window.localStorage.getItem("auth") === "true");
     
+    const [isMobile, setIsMobile] = useState(() => window.innerWidth < 700);
+
     useEffect(() => {
         firebaseAuth.onAuthStateChanged((userCred) => {
             if(userCred){
@@ -59,6 +61,7 @@ const App = () => {
                     <Route path="/upload" element={<Upload />}/>
                     <Route path="/subscribe" element={<Subscribe />}/>
                     <Route path="/login" element={<Login setAuth={setAuth}/>}/>
+                    <Route path='/signup' element={<SignUp setAuth={setAuth}/>} />
                 </Routes>
             </div>
         </AnimatePresence>

@@ -1,10 +1,10 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
-const Marquee = ({title}) => {   
+const Banner = ({title}) => {   
     
   return (
-    <div className='absolute z-10 flex items-center justify-center w-full h-full'>
+    <div className='absolute z-10 flex justify-center w-full h-full top-1/4 lg:top-auto lg:items-center'>
         <AnimateLetters title={title} />
     </div>
   )
@@ -12,7 +12,7 @@ const Marquee = ({title}) => {
 
 const AnimateLetters = ({title, disabled}) => {
     // variants
-    const marquee = {
+    const banner = {
         show: {
             transition: {
                 delayChildren: 2.5,
@@ -34,12 +34,12 @@ const AnimateLetters = ({title, disabled}) => {
     };
     return (
         <motion.span 
-        variants={disabled ? null: marquee} 
+        variants={disabled ? null: banner} 
         initial='hidden'
         animate='show'>
             {
                 [...title].map((letter) => (
-                    <motion.span variants={disabled ? null : letterAni} className='font-bold text-blue-900 text-8xl'>
+                    <motion.span variants={disabled ? null : letterAni} className='text-4xl font-bold lg:text-8xl'>
                         {letter}
                     </motion.span>
                 ))
@@ -48,4 +48,4 @@ const AnimateLetters = ({title, disabled}) => {
     )
 };
 
-export default Marquee
+export default Banner
