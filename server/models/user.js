@@ -11,15 +11,12 @@ const UserSchema = mongoose.Schema({
     },
     imageURL: {
         type: String,
-        required: true,
     },
     user_id: {
         type: String,
-        required: true,
     },
     email_verified: {
         type: Boolean,
-        required: true,
     },
     ph_number: {
         type: String
@@ -36,6 +33,9 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    password: {
+        type: String,
+    }
 }, 
 {timestamps: true}
 );
