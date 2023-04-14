@@ -8,6 +8,7 @@ dotenv.config({path: '.env'});
 const app = express();
 
 app.use(cors({origin: true}));
+app.use(express.json());    // Converting form data into json
 
 app.get("/", (req, res) => {
     return res.json("Hi there....")
@@ -15,9 +16,19 @@ app.get("/", (req, res) => {
 
 // user authentication route
 const userRoute = require('./routes/auth');
+app.use("/api/users/", userRoute); //send the user to auth.js if the path is /api/users
 
-//send the user to auth.js if the path is /api/users
-app.use("/api/users/", userRoute);
+// Artist Routes
+const artistRoutes = require('./routes/artists');
+app.use('/api/artists/', artistRoutes)
+
+// Albums Routes
+const albumRoutes = require('./routes/albums');
+app.use('/api/albums/', albumRoutes);
+
+// Songs Routes
+const songRoutes = require('./routes/songs');
+app.use('/api/songs/', songRoutes);
 
 mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
 mongoose.connection

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Browse, Home, LandingPage, Login, SignUp, Subscribe, Upload } from "./components";
+import { Browse, Home, LandingPage, Login, SignUp, Subscribe, Upload, Dashboard } from "./components";
 import { AnimatePresence } from 'framer-motion';
 
 import {app} from './config/firebase.config';
@@ -56,12 +56,15 @@ const App = () => {
             <div className="flex items-center justify-center">
                 <Routes>
                     <Route path="/" element={<LandingPage/>}/>
+                    <Route path="/login" element={<Login setAuth={setAuth}/>}/>
+                    <Route path='/signup' element={<SignUp setAuth={setAuth}/>} />
+
                     <Route path="/home" element={<Home />}/>
                     <Route path="/browse" element={<Browse />}/>
                     <Route path="/upload" element={<Upload />}/>
                     <Route path="/subscribe" element={<Subscribe />}/>
-                    <Route path="/login" element={<Login setAuth={setAuth}/>}/>
-                    <Route path='/signup' element={<SignUp setAuth={setAuth}/>} />
+                    
+                    <Route path="/dashboard/*" element={<Dashboard />} />
                 </Routes>
             </div>
         </AnimatePresence>
