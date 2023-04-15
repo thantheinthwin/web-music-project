@@ -1,5 +1,5 @@
 import { getAuth } from 'firebase/auth';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import { BiCrown, BiUser } from 'react-icons/bi'
@@ -20,6 +20,17 @@ const Navigation = () => {
   const role = user?.user?.role;
 
   let userIcon ;
+
+  // Admin access
+  const [isAdmin, setAdmin] = useState(false);
+
+  const [isDashboardBranch, setDashboardBranch] = useState(window.location.pathname.split("dashboard")[1]);
+
+  useEffect(() => {
+    if(user?.user?.role === "admin"){
+      setAdmin(true);
+    }
+  },[user])
 
   // Conditional Rendering to distinguish between artist and user
   switch(role){
@@ -50,15 +61,17 @@ const Navigation = () => {
     navigate('/login', {replace: true});
   }
 
+  console.log("isAdmin", isAdmin);
+
   return (
     <div className='flex justify-between w-full p-2 text-blue-900 shadow-md bg-sky-blue-50'>
-        <div className='flex gap-1'>
+        {(isDashboardBranch == "" || isDashboardBranch == "/") && <div className='flex gap-1'>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineLeft/></div>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineRight/></div>
             <div>
                 <input placeholder='Search' className='pl-2'/>
             </div>
-        </div>
+        </div>}
         <div className='relative flex items-center gap-2 ml-auto cursor-pointer' onMouseEnter={()=> {setIsMenu(true)}} onMouseLeave={()=> {setIsMenu(false)}}>
           <div className='flex flex-col gap-1'>
             <p>{username}</p>
@@ -82,7 +95,7 @@ const Navigation = () => {
                 <NavLink to={"/"} className='block px-4 py-2 text-sm text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100'>Favourite</NavLink>
               </div>
               <div className='py-1' role='none'>
-                {user?.user?.role === 'admin' && <NavLink to={"/dashboard/home"} className='block px-4 py-2 text-sm text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100'>Dashboard</NavLink>}
+                {isAdmin && <NavLink to={"/dashboard/home"} className='block px-4 py-2 text-sm text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100'>Dashboard</NavLink>}
               </div>
               <div className="py-1" role="none">
                 <button onClick={logOut} type="submit" className="block w-full px-4 py-2 text-sm text-left text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100">Sign out</button>
