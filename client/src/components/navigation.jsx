@@ -61,8 +61,6 @@ const Navigation = () => {
     navigate('/login', {replace: true});
   }
 
-  console.log("isAdmin", isAdmin);
-
   return (
     <div className='flex justify-between w-full p-2 text-blue-900 shadow-md bg-sky-blue-50'>
         {(isDashboardBranch == "" || isDashboardBranch == "/") && <div className='flex gap-1'>
@@ -94,9 +92,9 @@ const Navigation = () => {
                 <NavLink to={"/"} className='block px-4 py-2 text-sm text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100'>Profile</NavLink>
                 <NavLink to={"/"} className='block px-4 py-2 text-sm text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100'>Favourite</NavLink>
               </div>
-              <div className='py-1' role='none'>
-                {isAdmin && <NavLink to={"/dashboard/home"} className='block px-4 py-2 text-sm text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100'>Dashboard</NavLink>}
-              </div>
+              {isAdmin && <div className='py-1' role='none'>
+                <NavLink to={"/dashboard/home"} className='block px-4 py-2 text-sm text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100'>Dashboard</NavLink>
+              </div>}
               <div className="py-1" role="none">
                 <button onClick={logOut} type="submit" className="block w-full px-4 py-2 text-sm text-left text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100">Sign out</button>
               </div>

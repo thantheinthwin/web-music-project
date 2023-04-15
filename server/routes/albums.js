@@ -14,7 +14,7 @@ router.post('/save', async(req, res) => {
 
     try {
         const savedAlbum = await newAlbum.save();
-        return res.status(200).send({success: true, artist: savedAlbum});
+        return res.status(200).send({success: true, album: savedAlbum});
     } catch (error) {
         return res.status(400).send({success: false, msg: error});
     }

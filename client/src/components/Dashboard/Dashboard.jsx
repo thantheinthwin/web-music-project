@@ -22,7 +22,7 @@ const Dashboard = () => {
             <NavLink to={'/dashboard/albums'} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav }>Artists</NavLink>
             <NavLink to={'/dashboard/artists'} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav }>Albums</NavLink>
           </div>
-          <div className='bg-green-100 lg:col-span-8 lg:col-start-2'>
+          <div className='grid grid-flow-col grid-cols-10 lg:col-span-8 lg:col-start-2'>
             <Routes>
               <Route path='/home' element={<DashboardHome />} />
               <Route path='/users' element={<DashboardUsers />} />
