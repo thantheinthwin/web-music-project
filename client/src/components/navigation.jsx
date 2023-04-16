@@ -5,11 +5,14 @@ import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import { BiCrown, BiUser } from 'react-icons/bi'
 import { GrUserAdmin } from 'react-icons/gr'
 import { TfiMicrophone } from 'react-icons/tfi'
+import { Turn as Hamburger } from 'hamburger-react'
 
 import { NavLink, useNavigate } from 'react-router-dom';
 import { app } from '../config/firebase.config';
 import { motion } from 'framer-motion';
 import { useStateValue } from '../context/StateProvider';
+
+import { isActiveDashboardNav, isNotActiveDashboardNav } from '../utils/styles';
 
 const Navigation = () => {  
   const [{user}, dispatch] = useStateValue();
@@ -24,7 +27,7 @@ const Navigation = () => {
   // Admin access
   const [isAdmin, setAdmin] = useState(false);
 
-  const [isDashboardBranch, setDashboardBranch] = useState(window.location.pathname.split("dashboard")[1]);
+  const [isDashboardBranch, setDashboardBranch] = useState(window.location.pathname.split("/")[1]);
 
   useEffect(() => {
     if(user?.user?.role === "admin"){
@@ -51,6 +54,9 @@ const Navigation = () => {
   const navigate = useNavigate();
 
   const [isMenu, setIsMenu] = useState(false);
+  
+  // State for hamburger menu
+  const [isOpen, setOpen] = useState(false);
 
   const logOut = () => {
     const firebaseAuth = getAuth(app);
@@ -61,16 +67,57 @@ const Navigation = () => {
     navigate('/login', {replace: true});
   }
 
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 700);
+
+  const menuItems = [
+    {
+      id: 1,
+      link: '/dashboard/home',
+      to: 'Home'
+    },
+    {
+      id: 2,
+      link: '/dashboard/users',
+      to: 'Users'
+    },
+    {
+      id: 3,
+      link: '/dashboard/artists',
+      to: 'Artists'
+    },
+    {
+      id: 4,
+      link: '/dashboard/songs',
+      to: 'Songs'
+    },
+    {
+      id: 5,
+      link: '/dashboard/albums',
+      to: 'Albums'
+    }
+  ]
+
   return (
-    <div className='flex justify-between w-full p-2 text-blue-900 shadow-md bg-sky-blue-50'>
-        {(isDashboardBranch == "" || isDashboardBranch == "/") && <div className='flex gap-1'>
+    <div className='flex justify-between w-full text-blue-900 shadow-md bg-sky-blue-50'>
+        {isDashboardBranch !== "dashboard" && <div className='flex gap-1'>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineLeft/></div>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineRight/></div>
             <div>
                 <input placeholder='Search' className='pl-2'/>
             </div>
         </div>}
-        <div className='relative flex items-center gap-2 ml-auto cursor-pointer' onMouseEnter={()=> {setIsMenu(true)}} onMouseLeave={()=> {setIsMenu(false)}}>
+        {
+          (isMobile && isDashboardBranch == "dashboard") && <div className='relative'>
+            <div className='p-2'><Hamburger toggled={isOpen} toggle={setOpen} rounded/></div>
+            {isOpen && <motion.nav 
+            initial={{opacity: 0, y: -25}}
+            animate={{opacity: 1, y: 0, transition:{type: 'spring', duration: 0.5}}}
+            className='absolute grid w-screen p-4 text-xl font-medium text-center bg-white shadow-md'>
+              { menuItems.map((item) => <NavLink key={item.id} to={item.link} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav} onClick={()=>setOpen(false)}>{item.to}</NavLink>)}
+            </motion.nav>}
+          </div>
+        }
+        <div className='relative flex items-center gap-2 m-2 ml-auto cursor-pointer' onMouseEnter={()=> {setIsMenu(true)}} onMouseLeave={()=> {setIsMenu(false)}}>
           <div className='flex flex-col gap-1'>
             <p>{username}</p>
             <div className='flex flex-row-reverse text-xl'>
@@ -84,9 +131,9 @@ const Navigation = () => {
             initial={{opacity : 0, y : -50}} 
             animate={{opacity : 1, y: 0}}
             exit={{opacity : 0, y: -50}}
-            className="absolute right-0 z-10 w-auto bg-white divide-y divide-gray-100 rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+            className="absolute right-0 z-10 w-auto bg-white divide-y divide-gray-100 rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
               <div className="py-1" role="none">
-                <p className='block px-4 py-2 text-sm text-gray-700'>Signed in as<br/><p className='font-bold'>{email}</p></p>
+                <p className='block px-4 py-2 text-sm text-gray-700'>Signed in as<br/><span className='font-bold'>{email}</span></p>
               </div>
               <div className="py-1" role="none">
                 <NavLink to={"/"} className='block px-4 py-2 text-sm text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100'>Profile</NavLink>

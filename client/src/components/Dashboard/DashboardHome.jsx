@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react'
+
 import { getAllAlbums, getAllArtists, getAllSongs, getAllUsers } from '../../api';
+
+import { motion } from 'framer-motion'
+
 import { useStateValue } from '../../context/StateProvider';
 import { actionType } from '../../context/reducer';
 
@@ -11,10 +15,10 @@ import { HiOutlineMusicalNote } from 'react-icons/hi2';
 
 export const DashboardCard = ({icon, name, count}) => {
   return (
-    <div className='grid w-40 h-auto gap-2 p-4 shadow-md cursor-default rouned-lg bg-sky-blue-50 hover:shadow-lg'>
-      {icon}
+    <div className='grid w-40 h-auto grid-flow-col grid-rows-2 gap-2 p-4 shadow-md cursor-default rouned-lg bg-sky-blue-50 hover:shadow-lg'>
+      <i className='text-3xl'>{icon}</i>
       <p className='text-xl font-semibold'>{name}</p>
-      <p className='text-xl font-semibold'>{count}</p>
+      <p className='row-span-2 text-6xl font-semibold text-right'>{count}</p>
     </div>
   )
 }
@@ -60,13 +64,73 @@ const DashboardHome = () => {
     }
   },[])
 
+  const tags = [
+    {
+      id: 1,
+      icon: <AiOutlineUser/>,
+      name: "Users",
+      count: allUsers?.length
+    },
+    {
+      id: 2,
+      icon: <TbMicrophone2/>,
+      name: "Artists",
+      count: allArtists?.length
+    },
+    {
+      id: 3,
+      icon: <HiOutlineMusicalNote/>,
+      name: "Songs",
+      count: allSongs?.length
+    },
+    {
+      id: 4,
+      icon: <IoAlbumsOutline/>,
+      name: "Albums",
+      count: allAlbums?.length
+    },
+  ];
+
+  // Variants
+  const container = {
+    show: {
+      transition: {
+        staggerChildren: 0.35,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 25 },
+    show: { 
+      opacity: 1, 
+      y: 0, 
+      transition: {
+        duration: 1,
+        ease: "easeInOut"
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 1
+      }
+    },
+  }
+
   return (
-    <div className='grid items-center w-full grid-flow-row col-span-6 col-start-3 gap-3 p-6 lg:grid-flow-col justify-evenly'>
-      <DashboardCard icon={<AiOutlineUser/>} name={"Users"} count={ allUsers?.length > 0 ? allUsers?.length : 0 }/>
-      <DashboardCard icon={<TbMicrophone2/>} name={"Artists"} count={ allArtists?.length > 0 ? allArtists?.length : 0 }/>
-      <DashboardCard icon={<HiOutlineMusicalNote/>} name={"Songs"} count={ allSongs?.length > 0 ? allSongs?.length : 0 }/>
-      <DashboardCard icon={<IoAlbumsOutline/>} name={"Albums"} count={ allAlbums?.length > 0 ? allAlbums?.length : 0 }/>
-    </div>
+    <motion.div 
+    variants={container}
+    initial='hidden'
+    animate='show'
+    exit='exit' 
+    className='grid items-center w-full grid-flow-row col-span-6 col-start-3 p-6 mt-20 gap-x-3 gap-y-5 lg:grid-flow-col justify-evenly'>
+      {tags.map((tag) => 
+        <motion.div variants={item}>
+          <DashboardCard key={tag.id} icon={ tag.icon } name={ tag.name } count={ tag.count > 0 ? tag.count : 0 }/>
+        </motion.div>
+      )}
+    </motion.div>
   )
 }
 

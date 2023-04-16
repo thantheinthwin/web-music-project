@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navigation from '../navigation'
 import { NavLink, Route, Routes } from 'react-router-dom'
 
@@ -9,26 +9,73 @@ import { AiOutlineHome } from 'react-icons/ai'
 
 import { isActiveDashboardNav, isNotActiveDashboardNav } from '../../utils/styles'
 
+const Dashboard = () => {  
+  const menuItems = [
+    {
+      id: 1,
+      link: '/dashboard/home',
+      to: <AiOutlineHome className='text-2xl' />
+    },
+    {
+      id: 2,
+      link: '/dashboard/users',
+      to: 'Users'
+    },
+    {
+      id: 3,
+      link: '/dashboard/artists',
+      to: 'Artists'
+    },
+    {
+      id: 4,
+      link: '/dashboard/songs',
+      to: 'Songs'
+    },
+    {
+      id: 5,
+      link: '/dashboard/albums',
+      to: 'Albums'
+    }
+  ]
 
-const Dashboard = () => {
+  const routes = [
+    {
+      id: 1,
+      path: '/home',
+      element: <DashboardHome />
+    },
+    {
+      id: 2,
+      path: '/users',
+      element: <DashboardUsers />
+    },
+    {
+      id: 3,
+      path: '/artists',
+      element: <DashboardArtists />
+    },
+    {
+      id: 4,
+      path: '/songs',
+      element: <DashboardSongs />
+    },
+    {
+      id: 5,
+      path: '/albums',
+      element: <DashboardAlbums />
+    }
+  ];
+  
   return (
     <div className='relative flex flex-col items-center justify-center w-full h-auto'>
         <Navigation />
         <div className='grid items-center w-full lg:grid-cols-10'>
-          <div className='grid grid-flow-col p-4 text-base font-medium bg-white rounded-md shadow-md lg:col-span-6 lg:col-start-3 justify-evenly'>
-            <NavLink to={'/dashboard/home'} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav }><AiOutlineHome className='text-2xl'/></NavLink>
-            <NavLink to={'/dashboard/users'} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav }>Users</NavLink>
-            <NavLink to={'/dashboard/songs'} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav }>Songs</NavLink>
-            <NavLink to={'/dashboard/albums'} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav }>Artists</NavLink>
-            <NavLink to={'/dashboard/artists'} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav }>Albums</NavLink>
-          </div>
+          <nav className='hidden grid-flow-row p-4 text-base font-medium bg-white rounded-md shadow-md lg:grid lg:grid-flow-col lg:col-span-6 lg:col-start-3 justify-evenly'>
+            {menuItems.map((item) => <NavLink key={item.id} to={item.link} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav}>{item.to}</NavLink>)}
+          </nav>
           <div className='grid grid-flow-col grid-cols-10 lg:col-span-8 lg:col-start-2'>
             <Routes>
-              <Route path='/home' element={<DashboardHome />} />
-              <Route path='/users' element={<DashboardUsers />} />
-              <Route path='/songs' element={<DashboardSongs /> } />
-              <Route path='/albums' element={<DashboardAlbums />} />
-              <Route path='/artists' element={<DashboardArtists />} />
+              {routes.map((route) => <Route path={route.path} element={route.element} />)}
             </Routes>
           </div>
         </div>
