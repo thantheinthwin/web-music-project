@@ -124,7 +124,7 @@ const DashboardHome = () => {
     initial='hidden'
     animate='show'
     exit='exit' 
-    className='grid items-center w-full grid-flow-row col-span-6 col-start-3 p-6 mt-20 gap-x-3 gap-y-5 lg:grid-flow-col justify-evenly'>
+    className='grid items-center w-full grid-flow-row col-span-6 p-6 mt-20 lg:col-start-2 gap-x-3 gap-y-5 lg:grid-flow-col justify-evenly'>
       {tags.map((tag) => 
         <motion.div variants={item}>
           <DashboardCard key={tag.id} icon={ tag.icon } name={ tag.name } count={ tag.count > 0 ? tag.count : 0 }/>

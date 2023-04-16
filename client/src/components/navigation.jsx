@@ -112,7 +112,7 @@ const Navigation = () => {
             {isOpen && <motion.nav 
             initial={{opacity: 0, y: -25}}
             animate={{opacity: 1, y: 0, transition:{type: 'spring', duration: 0.5}}}
-            className='absolute grid w-screen p-4 text-xl font-medium text-center bg-white shadow-md'>
+            className='absolute z-30 grid w-screen p-4 text-xl font-medium text-center bg-white shadow-md'>
               { menuItems.map((item) => <NavLink key={item.id} to={item.link} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav} onClick={()=>setOpen(false)}>{item.to}</NavLink>)}
             </motion.nav>}
           </div>
