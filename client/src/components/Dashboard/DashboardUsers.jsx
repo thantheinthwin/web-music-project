@@ -32,7 +32,7 @@ const DashboardUsers = () => {
   }
   
   return (
-    <div className='grid grid-flow-col mt-2 col-span-full'> 
+    <div className='grid grid-flow-col grid-cols-4 mt-2 lg:grid-cols-6 col-span-full'> 
       {/* filter */}
 
       {/* tabular data form */}
@@ -90,6 +90,8 @@ export const DashboardUserCard = ({data, index, item}) => {
 
   const [isMobile, setMobile] = useState(window.innerWidth < 700);
 
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
   return (<div>
     {
     !isMobile && <motion.div
@@ -107,12 +109,27 @@ export const DashboardUserCard = ({data, index, item}) => {
     {
       isMobile && <motion.div
         variants={item}
-        className='relative grid items-center grid-flow-col grid-cols-4 rounded-sm cursor-pointer bg-gray-50 col-span-full hover:bg-gray-100'
       >
-        <img src={data.imageURL} alt={data._id} className='object-cover w-10 h-10 col-span-1 bg-blue-100 rounded-md shadow-md justify-self-center'/>
-        <p className='col-span-1 text-base text-center break-all'>{data.name}</p>
-        <p className='col-span-1 text-base text-center break-all'>{data.role}</p>
-        <AiOutlineMore className='mr-4 text-2xl justify-self-end' />
+        <div className='relative z-10 grid items-center grid-flow-col grid-cols-4 rounded-sm cursor-pointer bg-gray-50 col-span-full hover:bg-gray-100'>
+          <img src={data.imageURL} alt={data._id} className='object-cover w-10 h-10 col-span-1 bg-blue-100 rounded-md shadow-md justify-self-center'/>
+          <p className='col-span-1 text-base text-center break-word'>{data.name}</p>
+          <p className='col-span-1 text-base text-center break-word'>{data.role}</p>
+          <AiOutlineMore className='col-span-1 mr-4 text-2xl justify-self-end' onClick={() => {setMenuOpen(!isMenuOpen)}}/>
+        </div>
+        {isMenuOpen && <motion.div 
+          initial={{opacity: 0, y: -25}}
+          animate={{opacity: 1, y: 0, transition: {ease: 'easeInOut', duration: 0.5}}}
+          exit={{opacity: 0,y: -25, transition: {ease: 'easeInOut', duration: 1}}}
+          className='grid grid-flow-row grid-cols-3 p-2 divide-x bg-gray-50 col-span-full'>
+            <div className='grid col-span-2 gap-1 bg-green-100'>
+              <p className='col-span-1 text-base break-all'>{data.email}</p>
+              <p className='col-span-1 text-base break-all'>{data.subscription ? <span>Subscribed</span> : <span>Free user</span>}</p>
+              <p className='col-span-1 font-mono text-sm break-all'>{createdAt}</p>
+            </div>
+            <div className='grid col-span-1 p-2 bg-blue-100'>
+              more feature
+            </div>
+          </motion.div>}
       </motion.div>
     }
   </div>
