@@ -50,3 +50,12 @@ export const getAllSongs = async () => {
         return null;
     }
 };
+
+export const removeUser = async (userId) => {
+    try {
+        const res = await axios.delete(`${baseURL}api/users/deleteUser/${userId}`);
+        return res;
+    } catch (error) {
+        return null;
+    }
+}

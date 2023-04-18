@@ -70,8 +70,8 @@ const Dashboard = () => {
     <div className='relative flex flex-col items-center justify-center w-full h-auto'>
         <Navigation />
         <div className='grid items-center w-full lg:grid-cols-10'>
-          <nav className='hidden grid-flow-row p-4 text-base font-medium bg-white rounded-md shadow-md lg:grid lg:grid-flow-col lg:col-span-6 lg:col-start-3 justify-evenly'>
-            {menuItems.map((item) => <NavLink key={item.id} to={item.link} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav}>{item.to}</NavLink>)}
+          <nav className='hidden grid-flow-row p-4 text-base font-medium bg-white shadow-md rounded-b-md lg:grid lg:grid-flow-col lg:col-span-6 lg:col-start-3 justify-evenly'>
+            {menuItems.map((item) => <NavLink to={item.link} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav}>{item.to}</NavLink>)}
           </nav>
           <div className='grid grid-flow-col grid-cols-4 lg:grid-cols-8 lg:col-span-8 lg:col-start-2 col-span-full'>
             <Routes>

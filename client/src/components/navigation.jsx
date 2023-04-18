@@ -7,6 +7,8 @@ import { GrUserAdmin } from 'react-icons/gr'
 import { TfiMicrophone } from 'react-icons/tfi'
 import { Turn as Hamburger } from 'hamburger-react'
 
+import { Logo } from '../assets/img';
+
 import { NavLink, useNavigate } from 'react-router-dom';
 import { app } from '../config/firebase.config';
 import { motion } from 'framer-motion';
@@ -48,7 +50,6 @@ const Navigation = () => {
       break;
     default:
       userIcon = <BiUser/>;
-      break;
   }
 
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ const Navigation = () => {
   ]
 
   return (
-    <div className='flex justify-between w-full text-blue-900 shadow-md bg-sky-blue-50'>
+    <div className='flex items-center justify-between w-full text-blue-900 shadow-md bg-blue-50'>
         {isDashboardBranch !== "dashboard" && <div className='flex gap-1'>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineLeft/></div>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineRight/></div>
@@ -106,13 +107,16 @@ const Navigation = () => {
                 <input placeholder='Search' className='pl-2'/>
             </div>
         </div>}
+
+        {(!isMobile && isDashboardBranch == "dashboard") && <img src={Logo} className='object-cover w-12 h-12 m-2'/>}
+        
         {
           (isMobile && isDashboardBranch == "dashboard") && <div className='relative'>
             <div className='p-2'><Hamburger toggled={isOpen} toggle={setOpen} rounded/></div>
             {isOpen && <motion.nav 
             initial={{opacity: 0, y: -25}}
             animate={{opacity: 1, y: 0, transition:{type: 'spring', duration: 0.5}}}
-            className='absolute z-30 grid w-screen p-4 text-xl font-medium text-center bg-white shadow-md'>
+            className='absolute z-40 grid w-screen p-4 text-xl font-medium text-center bg-white shadow-md'>
               { menuItems.map((item) => <NavLink key={item.id} to={item.link} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav} onClick={()=>setOpen(false)}>{item.to}</NavLink>)}
             </motion.nav>}
           </div>
@@ -120,9 +124,9 @@ const Navigation = () => {
         <div className='relative flex items-center gap-2 m-2 ml-auto cursor-pointer' onMouseEnter={()=> {setIsMenu(true)}} onMouseLeave={()=> {setIsMenu(false)}}>
           <div className='flex flex-col gap-1'>
             <p>{username}</p>
-            <div className='flex flex-row-reverse text-xl'>
-              {userIcon}
+            <div className='flex flex-row-reverse gap-2 text-xl'>
               {(subscription) ? <BiCrown/>: <i></i>}
+              {userIcon}
             </div>     
           </div>     
           <img src={user?.user?.imageURL} alt="profile pic" referrerPolicy='no-referrer' className='w-12 min-w-[44px] rounded-lg object-cover shadow-lg filter hover:contrast-75'/>
@@ -131,7 +135,7 @@ const Navigation = () => {
             initial={{opacity : 0, y : -50}} 
             animate={{opacity : 1, y: 0}}
             exit={{opacity : 0, y: -50}}
-            className="absolute right-0 z-10 w-auto bg-white divide-y divide-gray-100 rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+            className="absolute right-0 z-50 w-auto bg-white divide-y divide-gray-100 rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
               <div className="py-1" role="none">
                 <p className='block px-4 py-2 text-sm text-gray-700'>Signed in as<br/><span className='font-bold'>{email}</span></p>
               </div>
