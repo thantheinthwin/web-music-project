@@ -12,3 +12,4 @@ export { default as Browse } from './browse';
 export { default as Subscribe } from './subscribe';
 export { default as Upload } from './upload';
 export { default as Banner } from './Banner';
+export { default as SongCard } from './SongCard';

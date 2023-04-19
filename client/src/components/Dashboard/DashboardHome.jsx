@@ -13,15 +13,15 @@ import { TbMicrophone2 } from 'react-icons/tb';
 import { IoAlbumsOutline } from 'react-icons/io5';
 import { HiOutlineMusicalNote } from 'react-icons/hi2';
 
-export const DashboardCard = ({icon, name, count}) => {
+export const DashboardCard = ({ icon, name, count }) => {
   return (
-    <div className='grid w-40 h-auto grid-flow-col grid-rows-2 gap-2 p-4 shadow-md cursor-default rouned-lg bg-sky-blue-50 hover:shadow-lg'>
-      <i className='text-3xl'>{icon}</i>
-      <p className='text-xl font-semibold'>{name}</p>
-      <p className='row-span-2 text-6xl font-semibold text-right'>{count}</p>
+    <div className="grid w-40 h-auto grid-flow-col grid-rows-2 gap-2 p-4 shadow-md cursor-default rouned-lg bg-sky-blue-50 hover:shadow-lg">
+      <i className="text-3xl">{icon}</i>
+      <p className="text-xl font-semibold">{name}</p>
+      <p className="row-span-2 text-6xl font-semibold text-right">{count}</p>
     </div>
-  )
-}
+  );
+};
 
 const DashboardHome = () => {
   const [{allUsers, allSongs, allArtists, allAlbums}, dispatch] = useStateValue();
@@ -119,19 +119,24 @@ const DashboardHome = () => {
   }
 
   return (
-    <motion.div 
-    variants={container}
-    initial='hidden'
-    animate='show'
-    exit='exit' 
-    className='grid items-center w-full grid-flow-row col-span-6 p-6 mt-20 lg:col-start-2 gap-x-3 gap-y-5 lg:grid-flow-col justify-evenly'>
-      {tags.map((tag) => 
-        <motion.div variants={item}>
-          <DashboardCard icon={ tag.icon } name={ tag.name } count={ tag.count > 0 ? tag.count : 0 }/>
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      className="grid items-center w-full grid-flow-row col-span-6 p-6 mt-20 justify-evenly gap-x-3 gap-y-5 lg:col-start-2 lg:grid-flow-col"
+    >
+      {tags.map((tag, i) => (
+        <motion.div variants={item} key={i}>
+          <DashboardCard
+            icon={tag.icon}
+            name={tag.name}
+            count={tag.count > 0 ? tag.count : 0}
+          />
         </motion.div>
-      )}
+      ))}
     </motion.div>
-  )
+  );
 }
 
 export default DashboardHome
