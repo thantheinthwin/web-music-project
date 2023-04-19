@@ -197,13 +197,13 @@ const DashboardUserCard = ({data, index, item}) => {
                   Are you sure you want to delete?
                 </p>
                 <span
-                  className="col-span-1 row-span-1 p-2 text-center transition-all duration-200 ease-in-out bg-green-500 rounded-lg hover:bg-green-600 hover:shadow-md"
+                  className="col-span-1 row-span-1 p-2 text-center text-white transition-all duration-200 ease-in-out bg-green-500 rounded-lg hover:bg-green-600 hover:shadow-md"
                   onClick={() => deleteUser(data._id)}
                 >
                   Yes
                 </span>
                 <span
-                  className="col-span-1 row-span-1 p-2 text-center transition-all duration-200 ease-in-out bg-red-500 rounded-lg hover:bg-red-600 hover:shadow-md"
+                  className="col-span-1 row-span-1 p-2 text-center text-white transition-all duration-200 ease-in-out bg-red-500 rounded-lg hover:bg-red-600 hover:shadow-md"
                   onClick={() => setDeleteConfirm(false)}
                 >
                   No
