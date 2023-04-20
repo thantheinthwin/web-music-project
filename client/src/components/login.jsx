@@ -38,7 +38,7 @@ const Login = ({setAuth}) => {
               })
              })
           })
-            navigate("/home", {replace: true})
+            navigate("/user/home", {replace: true})
           }else{
             setAuth(false);
             dispatch({
@@ -57,7 +57,7 @@ const Login = ({setAuth}) => {
   // Routing the user back to home screen if the user has already logged in
   useEffect(() => {
     if(window.localStorage.getItem("auth") === "true"){
-      navigate("/home", {replace: true})
+      navigate("/user/home", {replace: true})
     }
   }, [])
   

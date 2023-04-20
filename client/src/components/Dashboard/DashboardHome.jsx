@@ -102,21 +102,21 @@ const DashboardHome = () => {
 
   const item = {
     hidden: { opacity: 0, y: 25 },
-    show: { 
-      opacity: 1, 
-      y: 0, 
+    show: {
+      opacity: 1,
+      y: 0,
       transition: {
         duration: 1,
-        ease: "easeInOut"
-      }
+        ease: "easeInOut",
+      },
     },
     exit: {
       opacity: 0,
       transition: {
-        duration: 1
-      }
+        duration: 1,
+      },
     },
-  }
+  };
 
   return (
     <motion.div

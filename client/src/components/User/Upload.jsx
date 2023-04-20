@@ -1,9 +1,9 @@
 import React from 'react'
 
-const upload = () => {
+const Upload = () => {
   return (
     <div>upload</div>
   )
 }
 
-export default upload
+export default Upload

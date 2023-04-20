@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 // Importing Routes
-import { Browse, Home, LandingPage, Login, SignUp, Subscribe, Upload } from "./components";
+import { LandingPage, Login, SignUp} from "./components";
 import { Dashboard } from "./components/Dashboard";
 
 import { AnimatePresence } from 'framer-motion';
@@ -12,6 +12,7 @@ import { getAuth } from "firebase/auth";
 import { validateUser } from "./api";
 import { useStateValue } from "./context/StateProvider";
 import { actionType } from "./context/reducer";
+import { User } from "./components/User";
 
 const App = () => {
     const firebaseAuth = getAuth(app);
@@ -43,12 +44,13 @@ const App = () => {
                 console.log(window.location);
                 
                 // Restricting the user from gaining access to the main page without logging in
-                const names = ['/home', '/browse', '/subscribe', '/upload'];
+                // const names = ['/home', '/browse', '/subscribe', '/upload'];
 
-                if(names.indexOf(window.location.pathname) !== -1){
-                    navigate('/login');
-                }
-                
+                // if(names.indexOf(window.location.pathname) !== -1){
+                //     navigate('/login');
+                // }
+               
+                navigate('/login');
             }
         })
     }, []);
@@ -61,11 +63,7 @@ const App = () => {
                     <Route path="/login" element={<Login setAuth={setAuth}/>}/>
                     <Route path='/signup' element={<SignUp setAuth={setAuth}/>} />
 
-                    <Route path="/home" element={<Home />}/>
-                    <Route path="/browse" element={<Browse />}/>
-                    <Route path="/upload" element={<Upload />}/>
-                    <Route path="/subscribe" element={<Subscribe />}/>
-                    
+                    <Route path="/user/*" element={<User />}/>
                     <Route path="/dashboard/*" element={<Dashboard />} />
                 </Routes>
             </div>

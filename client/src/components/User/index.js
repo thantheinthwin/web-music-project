@@ -1,0 +1,7 @@
+export { default as User } from './User'
+export { default as Home } from './Home'
+export { default as SideBar } from './SideBar'
+export { default as ContantArea } from './ContantArea'
+export { default as Upload } from './Upload'
+export { default as Subscribe } from './Subscribe'
+export { default as Browse } from './Browse'

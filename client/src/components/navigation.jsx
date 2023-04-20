@@ -72,27 +72,22 @@ const Navigation = () => {
 
   const menuItems = [
     {
-      id: 1,
       link: '/dashboard/home',
       to: 'Home'
     },
     {
-      id: 2,
       link: '/dashboard/users',
       to: 'Users'
     },
     {
-      id: 3,
       link: '/dashboard/artists',
       to: 'Artists'
     },
     {
-      id: 4,
       link: '/dashboard/songs',
       to: 'Songs'
     },
     {
-      id: 5,
       link: '/dashboard/albums',
       to: 'Albums'
     }

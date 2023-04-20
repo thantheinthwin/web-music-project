@@ -46,7 +46,7 @@ const landingPage = () => {
     },
     exit: {
       opacity: 0,
-    }
+    },
   };
   
   return (
