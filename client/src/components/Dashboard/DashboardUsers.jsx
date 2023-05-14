@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+
 import { getAllUsers } from '../../api';
 import { useStateValue } from '../../context/StateProvider'
 import { actionType } from '../../context/reducer';

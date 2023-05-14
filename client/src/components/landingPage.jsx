@@ -50,7 +50,7 @@ const landingPage = () => {
   };
   
   return (
-    <div className='items-center w-full'>
+    <div className='items-center w-full text-white bg-black'>
       <LandingPageHeader/>
       <div className='relative'>
         <Banner title={"Welcome to SING !"} />

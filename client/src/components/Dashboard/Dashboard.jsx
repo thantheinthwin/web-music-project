@@ -59,8 +59,8 @@ const Dashboard = () => {
   return (
     <div className="relative flex flex-col items-center justify-center w-full h-auto">
       <Navigation />
-      <div className="grid items-center w-full lg:grid-cols-10">
-        <nav className="hidden grid-flow-row p-4 text-base font-medium bg-white shadow-md justify-evenly rounded-b-md lg:col-span-6 lg:col-start-3 lg:grid lg:grid-flow-col">
+      <div className="grid items-center w-full text-white lg:grid-cols-10">
+        <nav className="hidden grid-flow-row p-4 text-base font-medium justify-evenly rounded-b-md lg:col-span-6 lg:col-start-3 lg:grid lg:grid-flow-col bg-neutral-900">
           {menuItems.map((item, i) => (
             <NavLink
               key={i}

@@ -11,7 +11,7 @@ export const validateUser = async (token) => {
         })
         return res.data;
     } catch (error) {
-        
+        return null;
     }
 };
 

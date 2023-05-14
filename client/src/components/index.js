@@ -7,3 +7,4 @@ export { default as LandingPageHeader } from './landingPageHeader';
 export { default as navigation } from './navigation';
 export { default as Banner } from './Banner';
 export { default as SongCard } from './SongCard';
+export { default as ArtistCard } from './ArtistCard';

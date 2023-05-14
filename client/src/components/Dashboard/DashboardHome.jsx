@@ -15,7 +15,7 @@ import { HiOutlineMusicalNote } from 'react-icons/hi2';
 
 export const DashboardCard = ({ icon, name, count }) => {
   return (
-    <div className="grid w-40 h-auto grid-flow-col grid-rows-2 gap-2 p-4 shadow-md cursor-default rouned-lg bg-sky-blue-50 hover:shadow-lg">
+    <div className="grid w-40 h-auto grid-flow-col grid-rows-2 gap-2 p-4 rounded-md cursor-default bg-neutral-700 rouned-lg bg-sky-blue-50 hover:shadow-lg">
       <i className="text-3xl">{icon}</i>
       <p className="text-xl font-semibold">{name}</p>
       <p className="row-span-2 text-6xl font-semibold text-right">{count}</p>

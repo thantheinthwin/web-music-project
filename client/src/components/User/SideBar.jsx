@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { FaHome, FaGlobeAsia } from 'react-icons/fa'
 import { MdWorkspacePremium } from 'react-icons/md'
 import { BiCloudUpload } from 'react-icons/bi'
 
 import { isActiveStyle, isNotActiveStyle } from '../../utils/styles'
+import { useStateValue } from '../../context/StateProvider'
 
 const SideBar = () => {
+  const [{user}, dispatch] = useStateValue();
+
+  const [isArtist, setUserArtist] = useState(false);
+
+  useEffect(() => {
+    if(user?.user?.role === 'artist'){
+      setUserArtist(true);
+    }
+  }, [user])
+
   const links = [
     {
       path: '/user/home',
@@ -19,24 +30,20 @@ const SideBar = () => {
       icon: <FaGlobeAsia/>
     },
     {
-      path: '/user/upload',
-      link: "Upload",
-      icon: <BiCloudUpload/>
-    },
-    {
-      path: 'user/subscribe',
+      path: '/user/subscribe',
       link: "Subscribe",
       icon: <MdWorkspacePremium/>
     }
   ];
 
   return (
-    <div className="flex flex-col justify-between flex-none w-48 h-screen bg-sky-blue-100 text-sky-900">
+    <div className="flex flex-col justify-between flex-none w-48 h-screen bg-neutral-900">
       <ul>
-        {links.map((link) => (
-          <li>
+        {links.map((link , i) => (
+          <li key={i}>
             <NavLink
               to={link.path}
+              key={i}
               className={({ isActive }) =>
                 isActive ? isActiveStyle : isNotActiveStyle
               }
@@ -46,6 +53,19 @@ const SideBar = () => {
             </NavLink>
           </li>
         ))}
+        {isArtist && <li>
+          <NavLink
+            to="/user/upload"
+            className={({ isActive }) =>
+              isActive ? isActiveStyle : isNotActiveStyle
+            }
+          >
+            <i className="mr-2 text-2xl">
+              <BiCloudUpload />
+            </i>
+            Upload
+          </NavLink>
+        </li>}
       </ul>
       <div className="overflow-y-auto border-2 border-sky-blue-100">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis

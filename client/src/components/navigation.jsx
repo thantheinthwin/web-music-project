@@ -11,7 +11,7 @@ import { Logo } from '../assets/img';
 
 import { NavLink, useNavigate } from 'react-router-dom';
 import { app } from '../config/firebase.config';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useStateValue } from '../context/StateProvider';
 
 import { isActiveDashboardNav, isNotActiveDashboardNav } from '../utils/styles';
@@ -29,7 +29,9 @@ const Navigation = () => {
   // Admin access
   const [isAdmin, setAdmin] = useState(false);
 
-  const [isDashboardBranch, setDashboardBranch] = useState(window.location.pathname.split("/")[1]);
+  const [isDashboardBranch, setDashboardBranch] = useState(window.location.pathname.split("/").some(path => path === "dashboard"));
+
+  const [isUploadPage, setUploadPage] = useState(window.location.pathname.split("/").some(path => path === "upload"));
 
   useEffect(() => {
     if(user?.user?.role === "admin"){
@@ -40,16 +42,16 @@ const Navigation = () => {
   // Conditional Rendering to distinguish between artist and user
   switch(role){
     case "member":
-      userIcon = <BiUser/>;
+      userIcon = <BiUser className='p-1 bg-white rounded'/>;
       break;
     case "artist":
-      userIcon = <TfiMicrophone/>;
+      userIcon = <TfiMicrophone className='p-1 bg-white rounded'/>;
       break;
     case "admin":
-      userIcon = <GrUserAdmin/>;
+      userIcon = <GrUserAdmin className='p-1 bg-white rounded'/>;
       break;
     default:
-      userIcon = <BiUser/>;
+      userIcon = <BiUser className='p-1 bg-white rounded'/>;
   }
 
   const navigate = useNavigate();
@@ -80,12 +82,12 @@ const Navigation = () => {
       to: 'Users'
     },
     {
-      link: '/dashboard/artists',
-      to: 'Artists'
-    },
-    {
       link: '/dashboard/songs',
       to: 'Songs'
+    },
+    {
+      link: '/dashboard/artists',
+      to: 'Artists'
     },
     {
       link: '/dashboard/albums',
@@ -94,8 +96,8 @@ const Navigation = () => {
   ]
 
   return (
-    <div className='flex items-center justify-between w-full text-blue-900 shadow-md bg-blue-50'>
-        {isDashboardBranch !== "dashboard" && <div className='flex gap-1'>
+    <div className='flex items-center justify-between w-full text-white bg-neutral-900'>
+        {!isDashboardBranch && <div className='flex gap-1'>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineLeft/></div>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineRight/></div>
             <div>
@@ -103,17 +105,20 @@ const Navigation = () => {
             </div>
         </div>}
 
-        {(!isMobile && isDashboardBranch == "dashboard") && <img src={Logo} className='object-cover w-12 h-12 m-2'/>}
+        {(!isMobile && isDashboardBranch) && <img src={Logo} className='object-cover w-12 h-12 m-2'/>}
         
         {
-          (isMobile && isDashboardBranch == "dashboard") && <div className='relative'>
+          (isMobile && isDashboardBranch) && <div className='relative'>
             <div className='p-2'><Hamburger toggled={isOpen} toggle={setOpen} rounded/></div>
-            {isOpen && <motion.nav 
-            initial={{opacity: 0, y: -25}}
-            animate={{opacity: 1, y: 0, transition:{type: 'spring', duration: 0.5}}}
-            className='absolute z-40 grid w-screen p-4 text-xl font-medium text-center bg-white shadow-md'>
-              { menuItems.map((item) => <NavLink key={item.id} to={item.link} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav} onClick={()=>setOpen(false)}>{item.to}</NavLink>)}
-            </motion.nav>}
+            <AnimatePresence>
+              {isOpen && <motion.nav 
+              initial={{opacity: 0, y: -25}}
+              animate={{opacity: 1, y: 0, transition: {type: 'spring', duration: 0.5}}}
+              exit={{opacity: 0, y: -25, transition: {type: 'spring', duration: 0.5}}}
+              className='absolute z-40 grid w-screen p-4 text-xl font-medium text-center shadow-md bg-neutral-900'>
+                { menuItems.map((item) => <NavLink key={item.id} to={item.link} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav} onClick={()=>setOpen(false)}>{item.to}</NavLink>)}
+              </motion.nav>}
+            </AnimatePresence>
           </div>
         }
         <div className='relative flex items-center gap-2 m-2 ml-auto cursor-pointer' onMouseEnter={()=> {setIsMenu(true)}} onMouseLeave={()=> {setIsMenu(false)}}>
@@ -130,19 +135,22 @@ const Navigation = () => {
             initial={{opacity : 0, y : -50}} 
             animate={{opacity : 1, y: 0}}
             exit={{opacity : 0, y: -50}}
-            className="absolute right-0 z-50 w-auto bg-white divide-y divide-gray-100 rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+            className="absolute right-0 z-50 divide-y rounded-md shadow-lg divide-neutral-500 w-aut bg-neutral-800 top-12 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
               <div className="py-1" role="none">
-                <p className='block px-4 py-2 text-sm text-gray-700'>Signed in as<br/><span className='font-bold'>{email}</span></p>
+                <p className='block px-4 py-2 text-sm'>Signed in as<br/><span className='font-bold'>{email}</span></p>
               </div>
-              <div className="py-1" role="none">
-                <NavLink to={"/"} className='block px-4 py-2 text-sm text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100'>Profile</NavLink>
-                <NavLink to={"/"} className='block px-4 py-2 text-sm text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100'>Favourite</NavLink>
-              </div>
-              {isAdmin && <div className='py-1' role='none'>
-                <NavLink to={"/dashboard/home"} className='block px-4 py-2 text-sm text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100'>Dashboard</NavLink>
+              {isDashboardBranch && <div className='py-1' role='none'>
+                <NavLink to={"/user/home"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-gray-100'>Home</NavLink>
               </div>}
               <div className="py-1" role="none">
-                <button onClick={logOut} type="submit" className="block w-full px-4 py-2 text-sm text-left text-gray-700 transition-all duration-200 ease-in-out hover:bg-gray-100">Sign out</button>
+                <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-gray-100'>Profile</NavLink>
+                <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-gray-100'>Favourite</NavLink>
+              </div>
+              {(isAdmin && !isDashboardBranch)  && <div className='py-1' role='none'>
+                <NavLink to={"/dashboard/home"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-gray-100'>Dashboard</NavLink>
+              </div>}
+              <div className="py-1" role="none">
+                <button onClick={logOut} type="submit" className="block w-full px-4 py-2 text-sm text-left transition-all duration-200 ease-in-out hover:bg-gray-100">Sign out</button>
               </div>
             </motion.div>
           )}

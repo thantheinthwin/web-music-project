@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { AiOutlineMore } from 'react-icons/ai';
 import { HiOutlinePencil } from 'react-icons/hi';
@@ -38,45 +38,47 @@ const DashboardUserCard = ({data, index, item}) => {
           <motion.div
             variants={item}
             key={index}
-            className="relative grid items-center grid-flow-col grid-cols-6 p-2 rounded-sm cursor-pointer col-span-full bg-gray-50 hover:bg-gray-100"
+            className="relative grid items-center grid-flow-col grid-cols-6 p-2 rounded-sm cursor-pointer col-span-full bg-neutral-900 hover:bg-neutral-800"
           >
             <button className="flex items-center col-span-1 justify-evenly">
               <div
-                className="p-2 rounded-lg hover:bg-rose-100"
+                className="p-2 rounded-lg hover:bg-neutral-700"
                 onClick={() => setDeleteConfirm(!isDeleteConfirm)}
               >
                 <BsTrash className="text-xl text-red-500" />
               </div>
-              {isDeleteConfirm && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                    transition: {
-                      duration: 0.25,
-                    },
-                  }}
-                  exit={{ opacity: 0 }}
-                  className="absolute left-0 z-40 grid items-center grid-cols-2 grid-rows-2 gap-2 p-4 bg-white border rounded-lg shadow-xl top-12"
-                >
-                  <p className="col-span-2 row-span-1">
-                    Are you sure you want to delete?
-                  </p>
-                  <span
-                    className="col-span-1 row-span-1 p-2 text-center text-white transition-all duration-200 ease-in-out bg-green-500 rounded-lg hover:bg-green-600"
-                    onClick={() => deleteUser(data._id)}
-                  >
-                    Yes
-                  </span>
-                  <span
-                    className="col-span-1 row-span-1 p-2 text-center text-white transition-all duration-200 ease-in-out bg-red-500 rounded-lg hover:bg-red-600"
-                    onClick={() => setDeleteConfirm(false)}
-                  >
-                    No
-                  </span>
-                </motion.div>
-              )}
+              <AnimatePresence>
+                  {isDeleteConfirm && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.85 }}
+                      animate={{
+                        opacity: 1,
+                        scale: 1,
+                        transition: {
+                          duration: 0.25,
+                        },
+                      }}
+                      exit={{ opacity: 0 }}
+                      className="absolute left-0 z-40 grid items-center grid-cols-2 grid-rows-2 gap-2 p-4 border rounded-lg shadow-xl bg-neutral-800 top-12"
+                    >
+                      <p className="col-span-2 row-span-1">
+                        Are you sure you want to delete?
+                      </p>
+                      <span
+                        className="col-span-1 row-span-1 p-2 text-center text-white transition-all duration-200 ease-in-out bg-green-500 rounded-lg hover:bg-green-600"
+                        onClick={() => deleteUser(data._id)}
+                      >
+                        Yes
+                      </span>
+                      <span
+                        className="col-span-1 row-span-1 p-2 text-center text-white transition-all duration-200 ease-in-out bg-red-500 rounded-lg hover:bg-red-600"
+                        onClick={() => setDeleteConfirm(false)}
+                      >
+                        No
+                      </span>
+                    </motion.div>
+                  )}
+              </AnimatePresence>
               <img
                 src={data.imageURL}
                 alt={data._id}
@@ -108,7 +110,7 @@ const DashboardUserCard = ({data, index, item}) => {
         {/* Mobile View */}
         {isMobile && (
           <motion.div variants={item} key={index}>
-            <div className="relative z-30 grid items-center grid-flow-col grid-cols-4 p-2 bg-gray-100 rounded-sm cursor-pointer col-span-full hover:bg-gray-200">
+            <div className="relative z-30 grid items-center grid-flow-col grid-cols-4 p-2 rounded-sm cursor-pointer bg-neutral-900 col-span-full">
               <img
                 src={data.imageURL}
                 alt={data._id}
@@ -125,59 +127,62 @@ const DashboardUserCard = ({data, index, item}) => {
                 }}
               />
             </div>
-            {isMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -50 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { ease: "easeInOut", duration: 0.75 },
-                }}
-                exit={{
-                  opacity: 0,
-                  y: -25,
-                  transition: { ease: "easeInOut", duration: 1 },
-                }}
-                className="relative z-20 grid grid-flow-col grid-cols-4 p-2 bg-gray-100 divide-x col-span-full"
-              >
-                <div className="grid items-center col-span-3 grid-rows-4 gap-1 p-2">
-                  <p className="grid items-center grid-cols-5 col-span-1 text-sm break-word">
-                    <span className="col-span-1 font-semibold">Role :</span>
-                    <span className="col-span-4">
-                      <Role title={data.role} />
-                    </span>
-                  </p>
-                  <p className="grid grid-cols-5 col-span-1 text-sm break-all">
-                    <span className="col-span-1 font-semibold">Email :</span>
-                    <span className="col-span-4">{data.email}</span>
-                  </p>
-                  <p className="grid grid-cols-5 col-span-1 text-sm break-all">
-                    <span className="col-span-1 font-semibold">Paid :</span>
-                    <p className="col-span-4 text-sm font-semibold break-all">
-                      {data.subscription ? (
-                        <span>Subscribed</span>
-                      ) : (
-                        <span>Free user</span>
-                      )}
+            <AnimatePresence>
+              {isMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -50 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: { ease: "easeInOut", duration: 0.75 },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -25,
+                    transition: { ease: "easeInOut", duration: 0.5 },
+                  }}
+                  className="relative z-20 grid grid-flow-col grid-cols-4 p-2 divide-x rounded-b-sm bg-neutral-800 col-span-full"
+                >
+                  <div className="grid items-center col-span-3 grid-rows-4 gap-1 p-2">
+                    <p className="grid items-center grid-cols-5 col-span-1 text-sm break-word">
+                      <span className="col-span-1 font-semibold">Role :</span>
+                      <span className="col-span-4">
+                        <Role title={data.role} />
+                      </span>
                     </p>
-                  </p>
+                    <p className="grid grid-cols-5 col-span-1 text-sm break-all">
+                      <span className="col-span-1 font-semibold">Email :</span>
+                      <span className="col-span-4">{data.email}</span>
+                    </p>
+                    <p className="grid grid-cols-5 col-span-1 text-sm break-all">
+                      <span className="col-span-1 font-semibold">Paid :</span>
+                      <p className="col-span-4 text-sm font-semibold break-all">
+                        {data.subscription ? (
+                          <span>Subscribed</span>
+                        ) : (
+                          <span>Free user</span>
+                        )}
+                      </p>
+                    </p>
 
-                  <p className="grid grid-cols-5 col-span-1 text-sm break-all">
-                    <span className="col-span-1 font-semibold">Date :</span>
-                    <span className="col-span-4">{createdAt}</span>
-                  </p>
-                </div>
-                <div className="relative grid items-center col-span-3 grid-rows-2 gap-1 p-2 text-xl">
-                  {/* <div className='row-span-1 m-3 text-blue-500 justify-self-center'><HiOutlinePencil /></div> */}
-                  <button
-                    className="row-span-2 p-5 m-3 text-red-500 justify-self-center"
-                    onClick={() => setDeleteConfirm(true)}
-                  >
-                    <BsTrash />
-                  </button>
-                </div>
-              </motion.div>
-            )}
+                    <p className="grid grid-cols-5 col-span-1 text-sm break-all">
+                      <span className="col-span-1 font-semibold">Date :</span>
+                      <span className="col-span-4">{createdAt}</span>
+                    </p>
+                  </div>
+                  <div className="relative grid items-center col-span-3 grid-rows-2 gap-1 p-2 text-xl">
+                    {/* <div className='row-span-1 m-3 text-blue-500 justify-self-center'><HiOutlinePencil /></div> */}
+                    <button
+                      className="row-span-2 p-5 m-3 text-red-500 justify-self-center"
+                      onClick={() => setDeleteConfirm(true)}
+                    >
+                      <BsTrash />
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <AnimatePresence>
             {isDeleteConfirm && (
               <motion.div
                 initial={{ opacity: 0, y: -50 }}
@@ -189,9 +194,9 @@ const DashboardUserCard = ({data, index, item}) => {
                 exit={{
                   opacity: 0,
                   y: -25,
-                  transition: { ease: "easeInOut", duration: 1 },
+                  transition: { ease: "easeInOut", duration: 0.5 },
                 }}
-                className="z-10 grid items-center justify-center grid-cols-2 grid-rows-2 px-4 py-2 gap-x-2 bg-gray-50"
+                className="z-10 grid items-center justify-center grid-cols-2 grid-rows-2 px-4 py-2 gap-x-2 bg-neutral-700"
               >
                 <p className="col-span-2 row-span-1 text-center">
                   Are you sure you want to delete?
@@ -210,6 +215,7 @@ const DashboardUserCard = ({data, index, item}) => {
                 </span>
               </motion.div>
             )}
+            </AnimatePresence>
           </motion.div>
         )}
       </div>
@@ -221,14 +227,14 @@ const DashboardUserCard = ({data, index, item}) => {
   
     switch(title){
       case 'admin' :
-        bgColor ='bg-teal-100';
+        bgColor ='bg-red-700';
         break;
       default:
-        bgColor = 'bg-purple-100';
+        bgColor = 'bg-green-800';
     }
   
     return(
-      <div className={`px-2 py-1 text-sm shadow rounded-2xl w-fit ${bgColor}`}>{title}</div>
+      <div className={`px-2 py-1 text-sm rounded-2xl w-fit ${bgColor}`}>{title}</div>
     )
   }
 

@@ -2,9 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  background-color: black;
+}
+
 :root{
-    --primary: #f4f8ff;
-    --secondary: #abc0da;
+    --primary: white;
+    --secondary: #1d1622;
 }
 
 input:-webkit-autofill,
