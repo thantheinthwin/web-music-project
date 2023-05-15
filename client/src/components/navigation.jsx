@@ -97,7 +97,7 @@ const Navigation = () => {
 
   return (
     <div className='flex items-center justify-between w-full text-white bg-neutral-900'>
-        {!isDashboardBranch && <div className='flex gap-1'>
+        {!isDashboardBranch && !isMobile && <div className='flex gap-1'>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineLeft/></div>
             <div className='text-2xl h-fit hover:bg-sky-blue-75 hover:cursor-pointer'><AiOutlineRight/></div>
             <div>
@@ -140,17 +140,17 @@ const Navigation = () => {
                 <p className='block px-4 py-2 text-sm'>Signed in as<br/><span className='font-bold'>{email}</span></p>
               </div>
               {isDashboardBranch && <div className='py-1' role='none'>
-                <NavLink to={"/user/home"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-gray-100'>Home</NavLink>
+                <NavLink to={"/user/home"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Home</NavLink>
               </div>}
               <div className="py-1" role="none">
-                <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-gray-100'>Profile</NavLink>
-                <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-gray-100'>Favourite</NavLink>
+                <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Profile</NavLink>
+                <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Change account type</NavLink>
               </div>
               {(isAdmin && !isDashboardBranch)  && <div className='py-1' role='none'>
-                <NavLink to={"/dashboard/home"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-gray-100'>Dashboard</NavLink>
+                <NavLink to={"/dashboard/home"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Dashboard</NavLink>
               </div>}
               <div className="py-1" role="none">
-                <button onClick={logOut} type="submit" className="block w-full px-4 py-2 text-sm text-left transition-all duration-200 ease-in-out hover:bg-gray-100">Sign out</button>
+                <button onClick={logOut} type="submit" className="block w-full px-4 py-2 text-sm text-left transition-all duration-200 ease-in-out hover:bg-neutral-700">Sign out</button>
               </div>
             </motion.div>
           )}

@@ -46,7 +46,7 @@ const SongCard = ({data, index}) => {
         <div className="relative flex items-center justify-center w-full">
           <motion.i
             whileHover={{ scale: 1.15 }}
-            className="p-1 text-xl text-red-500 rounded-md hover:bg-rose-50"
+            className="p-1 text-xl text-red-500 rounded-md hover:bg-neutral-800"
             onClick={() => {
               setDeleteConfirm(!isDeleteConfirm);
             }}

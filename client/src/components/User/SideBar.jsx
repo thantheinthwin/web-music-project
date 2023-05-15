@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { FaHome, FaGlobeAsia } from 'react-icons/fa'
-import { MdWorkspacePremium } from 'react-icons/md'
+import { FaHome } from 'react-icons/fa'
+import { MdWorkspacePremium, MdFavorite } from 'react-icons/md'
 import { BiCloudUpload } from 'react-icons/bi'
 
 import { isActiveStyle, isNotActiveStyle } from '../../utils/styles'
@@ -26,8 +26,8 @@ const SideBar = () => {
     },
     {
       path: '/user/browse',
-      link: "Discover",
-      icon: <FaGlobeAsia/>
+      link: "Favourite",
+      icon: <MdFavorite/>
     },
     {
       path: '/user/subscribe',

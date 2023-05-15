@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import Navigation from '../navigation'
-import { Browse, Home, SideBar, Subscribe, Upload } from '.'
+import { Favorite, Home, MobileNav, SideBar, Subscribe, Upload } from '.'
 import { Route, Routes } from 'react-router-dom'
 
 const User = () => {
@@ -11,8 +11,8 @@ const User = () => {
       element: <Home/>
     },
     {
-      path: '/browse',
-      element: <Browse/>
+      path: '/favorite',
+      element: <Favorite/>
     },
     {
       path: '/subscribe',
@@ -24,10 +24,13 @@ const User = () => {
     }
   ]
 
+  // Checking mobile view
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 700);
+
   return (
     <div className="flex flex-col w-full h-screen overflow-hidden text-white bg-black">
       <div className="flex flex-1 overflow-y-hidden">
-        <SideBar />
+        {isMobile && <MobileNav/> || <SideBar />}
         <div className="flex-col w-full">
           <Navigation />
           <div className="w-full">
