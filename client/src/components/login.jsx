@@ -63,7 +63,7 @@ const Login = ({setAuth}) => {
   
 
   return (
-    <div className='relative w-screen h-screen text-white bg-black'>
+    <div className='relative w-screen h-screen'>
       <div className='absolute inset-0 flex items-center justify-center p-4'>
           <div className="grid grid-flow-col grid-rows-3 gap-4 p-12 text-white border border-white rounded-md shadow-xl lg:p-4 lg:max-w-4xl xl:max-w-6xl backdrop-blur-md">
             <div className="hidden col-span-1 row-span-3 bg-white rounded-l-md lg:flex">

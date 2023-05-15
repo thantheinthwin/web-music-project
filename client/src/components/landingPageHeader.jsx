@@ -8,7 +8,7 @@ const LandingPageHeader = () => {
   const [isMobile, isSetMobile] = useState(() => window.innerWidth < 700);
 
   return (
-    <nav className='absolute z-50 flex items-center justify-around w-full p-2 font-bold uppercase shadow-md'>
+    <nav className='absolute z-50 flex items-center justify-around w-full p-2 font-bold text-white uppercase shadow-md'>
       <motion.div 
       initial={isMobile ? {opacity:0, y: 20} : {opacity:0, x: -30}}
       // initial={{opacity:0, x:-30}}

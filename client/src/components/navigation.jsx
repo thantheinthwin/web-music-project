@@ -42,16 +42,16 @@ const Navigation = () => {
   // Conditional Rendering to distinguish between artist and user
   switch(role){
     case "member":
-      userIcon = <BiUser className='p-1 bg-white rounded'/>;
+      userIcon = <BiUser className='p-1 text-black bg-white rounded'/>;
       break;
     case "artist":
-      userIcon = <TfiMicrophone className='p-1 bg-white rounded'/>;
+      userIcon = <TfiMicrophone className='p-1 text-black bg-white rounded'/>;
       break;
     case "admin":
-      userIcon = <GrUserAdmin className='p-1 bg-white rounded'/>;
+      userIcon = <GrUserAdmin className='p-1 text-black bg-white rounded'/>;
       break;
     default:
-      userIcon = <BiUser className='p-1 bg-white rounded'/>;
+      userIcon = <BiUser className='p-1 text-black bg-white rounded'/>;
   }
 
   const navigate = useNavigate();
@@ -125,7 +125,7 @@ const Navigation = () => {
           <div className='flex flex-col gap-1'>
             <p>{username}</p>
             <div className='flex flex-row-reverse gap-2 text-xl'>
-              {(subscription) ? <BiCrown/>: <i></i>}
+              {subscription && <BiCrown/>}
               {userIcon}
             </div>     
           </div>     

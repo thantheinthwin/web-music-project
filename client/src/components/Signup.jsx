@@ -62,9 +62,9 @@ const Signup = ({setAuth}) => {
 
   return (
     <div className='relative w-screen h-screen'>
-         <div className='absolute inset-0 flex items-center justify-center p-4 bg-blue-50'>
-            <div className="grid grid-flow-col grid-rows-3 gap-4 p-12 bg-white rounded-md shadow-xl lg:p-4 lg:max-w-4xl xl:max-w-6xl backdrop-blur-md">
-                <div className="hidden col-span-1 row-span-3 rounded-l-md lg:flex bg-blue-50">
+         <div className='absolute inset-0 flex items-center justify-center p-4'>
+            <div className="grid grid-flow-col grid-rows-3 gap-4 p-12 border border-white rounded-md shadow-xl lg:p-4 lg:max-w-4xl xl:max-w-6xl backdrop-blur-md">
+                <div className="hidden col-span-1 row-span-3 bg-white rounded-l-md lg:flex">
                     <img src={loginPic} alt="loginPic" className='object-scale-down w-96'/>
                 </div>
                 <div className="grid col-span-2 row-span-3 pb-5 space-y-10 lg:w-96 justify-items-stretch">
@@ -72,44 +72,44 @@ const Signup = ({setAuth}) => {
                         <div className='flex justify-center w-full'>
                         <img src={Logo} alt="https://storyset.com/user" className='w-1/4 lg:w-1/6'/>
                         </div>
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 lg:text-4xl">Sign Up</h2>
-                        <p className="mt-2 text-sm leading-4 text-gray-600 lg:text-base">Music for everyone.<br/> Have some fun.</p>
+                        <h2 className="text-3xl font-bold tracking-tight lg:text-4xl">Sign Up</h2>
+                        <p className="mt-2 text-sm leading-4 lg:text-base">Music for everyone.<br/> Have some fun.</p>
                     </div>
                     <div className='w-full lg:w-2/3 justify-self-center'>
                         <form method='POST' className='grid justify-center grid-flow-row gap-3 space-y-3'>
-                        <div className='w-full'>
-                            <div className='relative'>
-                            <input id="username" name='username' type='text' placeholder='Username' className='w-full h-10 text-gray-900 placeholder-transparent border-0 border-b-2 border-gray-300 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
-                            <label for='username' className='absolute text-sm text-gray-600 transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-white peer-focus:p-1'>Username</label>
+                            <div className='w-full'>
+                                <div className='relative'>
+                                <input id="username" name='username' type='text' placeholder='Username' className='w-full h-10 placeholder-transparent bg-black border border-gray-300 rounded-md focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
+                                <label for='username' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-black peer-focus:p-1'>Username</label>
+                                </div>
                             </div>
-                        </div>
-                        <div className='w-full'>
-                            <div className='relative'>
-                            <input id="email" name='email' type='email' placeholder='Email' className='w-full h-10 text-gray-900 placeholder-transparent border-0 border-b-2 border-gray-300 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
-                            <label for='email' className='absolute text-sm text-gray-600 transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-white peer-focus:p-1'>Email</label>
+                            <div className='w-full'>
+                                <div className='relative'>
+                                <input id="email" name='email' type='email' placeholder='Email' className='w-full h-10 placeholder-transparent bg-black border border-gray-300 rounded-md focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
+                                <label for='email' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-black peer-focus:p-1'>Email</label>
+                                </div>
                             </div>
-                        </div>
-                        <div className='w-full'>
-                            <div className='relative'>
-                            <input id="password" name='password' type='password' placeholder='Password' className='w-full h-10 text-gray-900 placeholder-transparent border-0 border-b-2 border-gray-300 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
-                            <label for='password' className='absolute text-sm text-gray-600 transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-white peer-focus:p-1'>Password</label>
+                            <div className='w-full'>
+                                <div className='relative'>
+                                <input id="password" name='password' type='password' placeholder='Password' className='w-full h-10 placeholder-transparent bg-black border border-gray-300 rounded-md focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
+                                <label for='password' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-black peer-focus:p-1'>Password</label>
+                                </div>
                             </div>
-                        </div>
-                        <div className='w-full'>
-                            <div className='relative'>
-                            <input id="confirmpassword" name='confirmpassword' type='password' placeholder='Confirm Password' className='w-full h-10 text-gray-900 placeholder-transparent border-0 border-b-2 border-gray-300 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
-                            <label for='confirmpassword' className='absolute text-sm text-gray-600 transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-white peer-focus:p-1'>Confirm Password</label>
+                            <div className='w-full'>
+                                <div className='relative'>
+                                <input id="confirmpassword" name='confirmpassword' type='password' placeholder='Confirm Password' className='w-full h-10 placeholder-transparent bg-black border border-gray-300 rounded-md focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
+                                <label for='confirmpassword' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-black peer-focus:p-1'>Confirm Password</label>
+                                </div>
                             </div>
-                        </div>
-                        <div className='flex justify-center pt-1'>
-                            <input id="agreedTerm" name="agreedTerm" type="checkbox" className='rounded-md focus:ring-transparent'></input>
-                            <label for='agreedTerm' className='ml-2 text-sm font-medium text-gray-600'>I agree with the <a href="#" className="text-blue-600 hover:underline">terms and conditions</a>.</label>
-                        </div>
-                        <button className='py-2 transition-all duration-100 ease-in-out bg-blue-300 rounded-md shadow-md hover:shadow-lg'>Sign Up</button>
+                            <div className='flex justify-center pt-1'>
+                                <input id="agreedTerm" name="agreedTerm" type="checkbox" className='rounded-md focus:ring-transparent'></input>
+                                <label for='agreedTerm' className='ml-2 text-sm font-medium '>I agree with the <a href="#" className="text-blue-600 hover:underline">terms and conditions</a>.</label>
+                            </div>
+                            <button className='py-2 text-black transition-all duration-100 ease-in-out rounded-md shadow-md bg-primary hover:shadow-lg'>Sign Up</button>
                         </form>
                     </div>
                     <div className='flex justify-center w-full px-4 justify-self-center lg:px-0'>
-                        <div className='flex items-center justify-center w-full px-4 py-4 transition-all duration-100 ease-in-out bg-white rounded-md shadow-md cursor-pointer lg:py-2 lg:w-2/3 hover:shadow-lg'
+                        <div className='flex items-center justify-center w-full px-4 py-4 text-black transition-all duration-100 ease-in-out bg-white rounded-md shadow-md cursor-pointer lg:py-2 lg:w-2/3 hover:shadow-lg'
                             onClick={loginWithGoogle}>
                             <FcGoogle className='text-2xl'/>
                             Sign in with Google

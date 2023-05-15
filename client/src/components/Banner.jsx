@@ -38,9 +38,10 @@ const AnimateLetters = ({ title, disabled }) => {
       initial="hidden"
       animate="show"
     >
-      {[...title].map((letter) => (
+      {[...title].map((letter, i) => (
         <motion.span
           variants={disabled ? null : letterAni}
+          key={i}
           className="text-4xl font-bold lg:text-8xl"
         >
           {letter}

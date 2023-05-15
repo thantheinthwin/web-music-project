@@ -25,7 +25,7 @@ const SideBar = () => {
       icon: <FaHome/>
     },
     {
-      path: '/user/browse',
+      path: '/user/favorite',
       link: "Favourite",
       icon: <MdFavorite/>
     },

@@ -41,7 +41,7 @@ const App = () => {
                     user: null,
                 })
                 window.localStorage.setItem("auth", "false");
-                console.log(window.location);
+                // console.log(window.location);
                 
                 // Restricting the user from gaining access to the main page without logging in
                 // const names = ['/home', '/browse', '/subscribe', '/upload'];
@@ -50,7 +50,7 @@ const App = () => {
                 //     navigate('/login');
                 // }
                
-                navigate('/login');
+                navigate('/');
             }
         })
     }, []);

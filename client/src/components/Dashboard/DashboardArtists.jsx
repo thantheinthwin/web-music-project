@@ -63,7 +63,7 @@ const DashboardArtists = () => {
       </div>
 
       {/* Main Container */}
-      <div className="grid items-center justify-center grid-cols-4 gap-2 border border-gray-300 rounded-md col-span-full lg:grid-cols-8">
+      <div className="grid items-center justify-center grid-cols-4 border border-gray-300 rounded-md col-span-full lg:grid-cols-8 max-h-[60vh]">
         <div className="p-2 text-sm text-gray-400 col-span-full">
           You have {filteredArtists ? filteredArtists?.length : allArtists?.length} artists in the database.
         </div>
@@ -75,7 +75,7 @@ const DashboardArtists = () => {
 
 export const ArtistContainer = ({data}) => {
   return (
-    <div className='grid items-center grid-cols-1 gap-4 p-2 lg:grid-cols-12 col-span-full justify-evenly'>
+    <div className='grid items-center h-full grid-cols-1 gap-4 p-2 overflow-y-scroll md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 col-span-full justify-evenly'>
       { data && data.map((artist, i) =>
         <ArtistCard key={artist._id} data={artist} index={i} />
       ) }
