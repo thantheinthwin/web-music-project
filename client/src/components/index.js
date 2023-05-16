@@ -5,6 +5,5 @@ export { default as LandingPageHeader } from './landingPageHeader';
 
 // User components
 export { default as navigation } from './navigation';
-export { default as Banner } from './Banner';
-export { default as SongCard } from './SongCard';
-export { default as ArtistCard } from './ArtistCard';
+export { default as SongCard } from './Cards/SongCard';
+export { default as ArtistCard } from './Cards/ArtistCard';

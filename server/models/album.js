@@ -6,10 +6,14 @@ const albumSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        imageURL: {
+        artist: {
             type: String,
             required: true,
         },
+        imageURL: {
+            type: String,
+            required: true,
+        }
     },
     { timestamps: true }
 );

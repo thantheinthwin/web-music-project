@@ -68,3 +68,12 @@ export const removeSong = async (songId) => {
         return null;
     }
 };
+
+export const removeAlbum = async (albumId) => {
+    try {
+        const res = await axios.delete(`${baseURL}api/albums/delete/${albumId}`);
+        return res;
+    } catch (error) {
+        return null;
+    }
+}

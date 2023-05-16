@@ -57,7 +57,7 @@ const App = () => {
 
     return (
         <AnimatePresence mode="wait">
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center font-primary">
                 <Routes>
                     <Route path="/" element={<LandingPage/>}/>
                     <Route path="/login" element={<Login setAuth={setAuth}/>}/>

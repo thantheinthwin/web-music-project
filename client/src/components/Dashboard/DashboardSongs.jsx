@@ -7,7 +7,7 @@ import { useStateValue } from '../../context/StateProvider';
 import { getAllSongs } from '../../api';
 import { actionType } from '../../context/reducer';
 
-import SongCard from '../SongCard';
+import { SongCard } from '../Cards';
 
 const DashboardSongs = () => {
   const [songFilter, setSongFilter] = useState("");

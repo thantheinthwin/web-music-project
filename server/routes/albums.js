@@ -8,6 +8,7 @@ router.post('/save', async(req, res) => {
     const newAlbum = album(
         {
             name: req.body.name,
+            artist: req.body.artist,
             imageURL: req.body.imageURL,
         }
     );

@@ -3,6 +3,10 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        'secondary': ['Bungee Hairline'],
+        'primary': ['Montserrat Alternates']
+      },
       colors: {
         'primary': '#b3c2ff',
         'secondary': '#1d1622',

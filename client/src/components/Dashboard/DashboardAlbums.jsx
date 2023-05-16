@@ -6,6 +6,7 @@ import { RxCross1 } from 'react-icons/rx';
 import { useStateValue } from '../../context/StateProvider';
 import { getAllAlbums } from '../../api';
 import { actionType } from '../../context/reducer';
+import AlbumCard from '../Cards/AlbumCard';
 
 const DashboardAlbums = () => {
   const [albumFilter, setAlbumFilter] = useState("");
@@ -37,7 +38,7 @@ const DashboardAlbums = () => {
   }, [albumFilter]);
   
   return (
-    <div className='grid items-center justify-center grid-cols-4 gap-2 p-4 col-span-full lg:grid-cols-8'>
+    <div className='grid justify-center grid-cols-4 gap-3 p-4 col-span-full lg:grid-cols-8'>
       {/* Search bar */}
       <div className="relative grid grid-flow-col grid-cols-8 col-span-full lg:col-span-4 lg:col-start-3">
         <div className="relative grid grid-flow-col col-span-7">
@@ -65,9 +66,20 @@ const DashboardAlbums = () => {
         <div className="p-2 text-sm text-gray-400 col-span-full">
           You have {filteredAlbums ? filteredAlbums?.length : allAlbums?.length} albums in the database.
         </div>
+        <AlbumContainer data={filteredAlbums ? filteredAlbums : allAlbums}/>
       </div>
     </div>
   )
 }
+
+export const AlbumContainer = ({data}) => {
+  return (
+    <div className='grid items-center h-full grid-cols-2 gap-4 p-2 overflow-y-scroll sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 col-span-full justify-evenly'>
+      { data && data.map((album, i) =>
+        <AlbumCard key={album._id} data={album} index={i} />
+      ) }
+    </div>
+  );
+};
 
 export default DashboardAlbums

@@ -5,7 +5,7 @@ import { actionType } from '../../context/reducer';
 
 import { getAllSongs } from '../../api';
 
-import SongCard from '../SongCard';
+import { SongCard } from '../Cards';
 
 const Upload = () => {
   const[{user, allSongs}, dispatch] = useStateValue();

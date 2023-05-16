@@ -4,7 +4,8 @@ import {app} from '../config/firebase.config'
 import { getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 
 //Google Icon
-import {FcGoogle} from 'react-icons/fc'
+import { FcGoogle } from 'react-icons/fc'
+
 import { useNavigate } from 'react-router-dom'
 
 //Importing picture
@@ -65,11 +66,10 @@ const Login = ({setAuth}) => {
   return (
     <div className='relative w-screen h-screen'>
       <div className='absolute inset-0 flex items-center justify-center p-4'>
-          <div className="grid grid-flow-col grid-rows-3 gap-4 p-12 text-white border border-white rounded-md shadow-xl lg:p-4 lg:max-w-4xl xl:max-w-6xl backdrop-blur-md">
+          <div className="grid grid-flow-col grid-rows-3 gap-4 p-12 text-white rounded-md shadow-xl bg-secondary lg:p-4 lg:max-w-4xl xl:max-w-6xl backdrop-blur-md">
             <div className="hidden col-span-1 row-span-3 bg-white rounded-l-md lg:flex">
               <img src={loginPic} alt="loginPic" className='object-scale-down w-96'/>
             </div>
-
             <div className="grid col-span-2 row-span-3 pb-5 space-y-10 lg:w-96 justify-items-stretch">
               <div className="grid gap-2 mx-auto text-center lg:pt-12 ">
                 <div className='flex justify-center w-full'>
@@ -82,26 +82,26 @@ const Login = ({setAuth}) => {
                 <form method='POST' className='grid justify-center grid-flow-row gap-4 space-y-3'>
                   <div className='w-full'>
                     <div className='relative'>
-                      <input id="email" name='email' type='email' placeholder='Email' className='w-full h-10 placeholder-transparent bg-black border border-gray-300 rounded-md focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset'></input>
-                      <label for='email' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-black peer-focus:p-1'>Email</label>
+                      <input id="email" name='email' type='email' placeholder='Email' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-secondary focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset'></input>
+                      <label htmlFor='email' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-secondary peer-focus:p-1'>Email</label>
                     </div>
                   </div>
                   
                   <div className='w-full'>
                     <div className='relative'>
-                      <input id="password" name='password' type='password' placeholder='Password' className='w-full h-10 placeholder-transparent bg-black border border-gray-300 rounded-md focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset'></input>
-                      <label for='password' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-black peer-focus:p-1'>Password</label>
+                      <input id="password" name='password' type='password' placeholder='Password' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-secondary focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset'></input>
+                      <label htmlFor='password' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-secondary peer-focus:p-1'>Password</label>
                     </div>
                   </div>
                   <div className='flex justify-center pt-1'>
                     <input id="agreedTerm" name="agreedTerm" type="checkbox" className='rounded-md focus:ring-transparent'></input>
-                    <label for='agreedTerm' className='ml-2 text-sm font-medium'>I agree with the <a href="#" className="text-primary hover:underline">terms and conditions</a> .</label>
+                    <label htmlFor='agreedTerm' className='ml-2 text-sm font-medium'>I agree with the <a href="#" className="text-primary hover:underline">terms and conditions</a> .</label>
                   </div>
-                  <button className='py-2 text-black transition-all duration-100 ease-in-out rounded-md bg-primary hover:shadow-md hover:shadow-white'>Sign In</button>
+                  <button className='py-2 text-black transition-all duration-100 ease-in-out rounded-md bg-primary'>Sign In</button>
                 </form>
               </div>
               <div className='flex justify-center w-full px-4 justify-self-center lg:px-0'>
-                <div className='flex items-center justify-center w-full px-4 py-4 text-black transition-all duration-100 ease-in-out bg-white rounded-md shadow-md cursor-pointer lg:py-2 lg:w-2/3 hover:shadow-md hover:shadow-white'
+                <div className='flex items-center justify-center w-full px-4 py-4 text-black transition-all duration-100 ease-in-out bg-white rounded-md shadow-md cursor-pointer lg:py-2 lg:w-2/3'
                   onClick={loginWithGoogle}>
                   <FcGoogle className='text-2xl'/>
                   Sign in with Google

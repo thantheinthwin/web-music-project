@@ -7,7 +7,7 @@ import { RxCross1 } from 'react-icons/rx';
 import { useStateValue } from '../../context/StateProvider';
 import { getAllArtists } from '../../api';
 import { actionType } from '../../context/reducer';
-import { ArtistCard } from '..';
+import { ArtistCard } from '../Cards';
 
 const DashboardArtists = () => {
   const [artistFilter, setArtistFilter] = useState("");
@@ -39,7 +39,7 @@ const DashboardArtists = () => {
   }, [artistFilter]);
   
   return (
-    <div className='grid items-center justify-center grid-cols-4 gap-4 p-4 col-span-full lg:grid-cols-8'>
+    <div className='grid justify-center grid-cols-4 gap-3 p-4 col-span-full lg:grid-cols-8'>
       {/* Search bar */}
       <div className="relative grid grid-flow-col grid-cols-8 col-span-full lg:col-span-4 lg:col-start-3">
         <div className="relative grid grid-flow-col col-span-7">

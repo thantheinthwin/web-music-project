@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { useStateValue } from '../context/StateProvider'
-import { getAllSongs } from '../api';
-import { actionType } from '../context/reducer';
+import { useStateValue } from '../../context/StateProvider'
+import { getAllSongs } from '../../api';
+import { actionType } from '../../context/reducer';
 
 const ArtistCard = ({data, index}) => {
 
