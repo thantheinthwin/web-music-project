@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { NavLink } from 'react-router-dom'
 import { Img1, Img2, Img3, Img4, Img5 } from '../assets/img';
 
 import LandingPageHeader from './landingPageHeader'
@@ -49,25 +50,23 @@ const landingPage = () => {
   };
   
   return (
-    <div className='items-center w-full text-white bg-black'>
-      <LandingPageHeader/>
-      <div className='relative'>
-        <h1 className=''>Welcome to Jamify !</h1>
-        {/* <motion.div className='z-0 h-screen'
-        variants={container}
-        initial='hidden'
-        animate='show'
-        exit='exit'>
-          <motion.img src={Img1} alt="Img1" className='absolute hidden w-1/5 top-20 left-24 lg:flex' variants={item}/>
-          <motion.img src={Img2} alt="Img2" className='absolute hidden w-1/5 bottom-20 left-20 lg:flex' variants={item}/>
-          <motion.img src={Img3} alt='Img3' className='absolute hidden w-1/5 top-24 right-20 lg:flex' variants={item}/>
-          <motion.img src={Img4} alt="Img4" className='absolute hidden w-1/5 right-24 bottom-16 lg:flex' variants={item}/>
-          <motion.img src={Img5} alt="Img5" className='absolute top-0 bottom-0 left-0 right-0 w-full m-auto lg:w-2/5' variants={itemMain}/>
-        </motion.div> */}
-        
+    <div className="w-full text-white bg-black">
+      <LandingPageHeader />
+      <div className="relative grid w-3/4 grid-cols-10 m-auto">
+        <div className="grid col-span-full lg:col-span-6 h-80">
+          <p className="text-5xl cursor-default font-secondary lg:text-7xl">
+            Find And Listen To Your Favourite 
+            <span className="relative inline-block transition-all duration-500 ease-in-out before:block before:absolute before:inset-y-3 before:inset-x-0 before:-skew-y-3 before:bg-secondary hover:before:bg-neutral-800">
+              <span className='relative inline-block'>Artist</span>
+            </span>
+            Here
+          </p>
+          <p></p>
+        </div>
+        <div className="col-span-full lg:col-span-4 h-80">Thumbnail</div>
       </div>
     </div>
-  )
+  );
 }
 
 

@@ -63,7 +63,7 @@ const Signup = ({setAuth}) => {
   return (
     <div className='relative w-screen h-screen'>
          <div className='absolute inset-0 flex items-center justify-center p-4'>
-            <div className="grid grid-flow-col grid-rows-3 gap-4 p-12 rounded-md shadow-xl bg-secondary lg:p-4 lg:max-w-4xl xl:max-w-6xl backdrop-blur-md">
+            <div className="grid grid-flow-col grid-rows-3 gap-4 p-12 rounded-md shadow-xl bg-neutral-900 lg:p-4 lg:max-w-4xl xl:max-w-6xl backdrop-blur-md">
                 <div className="hidden col-span-1 row-span-3 bg-white rounded-l-md lg:flex">
                     <img src={loginPic} alt="loginPic" className='object-scale-down w-96'/>
                 </div>
@@ -79,26 +79,26 @@ const Signup = ({setAuth}) => {
                         <form method='POST' className='grid justify-center grid-flow-row gap-3 space-y-3'>
                             <div className='w-full'>
                                 <div className='relative'>
-                                <input id="username" name='username' type='text' placeholder='Username' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-secondary focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
-                                <label htmlFor='username' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-secondary peer-focus:p-1'>Username</label>
+                                <input id="username" name='username' type='text' placeholder='Username' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-neutral-900 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
+                                <label htmlFor='username' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-neutral-900 peer-focus:p-1'>Username</label>
                                 </div>
                             </div>
                             <div className='w-full'>
                                 <div className='relative'>
-                                <input id="email" name='email' type='email' placeholder='Email' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-secondary focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
-                                <label htmlFor='email' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-secondary peer-focus:p-1'>Email</label>
+                                <input id="email" name='email' type='email' placeholder='Email' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-neutral-900 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
+                                <label htmlFor='email' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-neutral-900 peer-focus:p-1'>Email</label>
                                 </div>
                             </div>
                             <div className='w-full'>
                                 <div className='relative'>
-                                <input id="password" name='password' type='password' placeholder='Password' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-secondary focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
-                                <label htmlFor='password' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-secondary peer-focus:p-1'>Password</label>
+                                <input id="password" name='password' type='password' placeholder='Password' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-neutral-900 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
+                                <label htmlFor='password' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-neutral-900 peer-focus:p-1'>Password</label>
                                 </div>
                             </div>
                             <div className='w-full'>
                                 <div className='relative'>
-                                <input id="confirmpassword" name='confirmpassword' type='password' placeholder='Confirm Password' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-secondary focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
-                                <label htmlFor='confirmpassword' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-secondary peer-focus:p-1'>Confirm Password</label>
+                                <input id="confirmpassword" name='confirmpassword' type='password' placeholder='Confirm Password' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-neutral-900 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset' required></input>
+                                <label htmlFor='confirmpassword' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-neutral-900 peer-focus:p-1'>Confirm Password</label>
                                 </div>
                             </div>
                             <div className='flex justify-center pt-1'>
