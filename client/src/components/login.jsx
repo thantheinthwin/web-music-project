@@ -82,14 +82,13 @@ const Login = ({setAuth}) => {
                 <form method='POST' className='grid justify-center grid-flow-row gap-4 space-y-3'>
                   <div className='w-full'>
                     <div className='relative'>
-                      <input id="email" name='email' type='email' placeholder='Email' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-neutral-900 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset'></input>
+                      <input id="email" name='email' type='email' placeholder='Email' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-neutral-900 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset caret-blue-300'></input>
                       <label htmlFor='email' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-neutral-900 peer-focus:p-1'>Email</label>
                     </div>
                   </div>
-                  
                   <div className='w-full'>
                     <div className='relative'>
-                      <input id="password" name='password' type='password' placeholder='Password' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-neutral-900 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset'></input>
+                      <input id="password" name='password' type='password' placeholder='Password' className='w-full h-10 placeholder-transparent border border-gray-300 rounded-md bg-neutral-900 focus:rounded-md focus:ring-2 focus:border-0 focus:ring-blue-300 peer focus:ring-inset caret-blue-300'></input>
                       <label htmlFor='password' className='absolute text-sm transition-all -top-3 left-3 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-placeholder-shown:left-2 peer-focus:-top-4 peer-focus:left-2 peer-focus:text-sm peer-focus:text-blue-300 peer-focus:bg-neutral-900 peer-focus:p-1'>Password</label>
                     </div>
                   </div>
@@ -101,7 +100,7 @@ const Login = ({setAuth}) => {
                 </form>
               </div>
               <div className='flex justify-center w-full px-4 justify-self-center lg:px-0'>
-                <div className='flex items-center justify-center w-full px-4 py-4 text-black transition-all duration-100 ease-in-out bg-white rounded-md shadow-md cursor-pointer lg:py-2 lg:w-2/3'
+                <div className='flex items-center justify-center w-full gap-2 px-4 py-4 text-black transition-all duration-100 ease-in-out bg-white rounded-md shadow-md cursor-pointer lg:py-2 lg:w-2/3'
                   onClick={loginWithGoogle}>
                   <FcGoogle className='text-2xl'/>
                   Sign in with Google

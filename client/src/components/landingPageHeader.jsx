@@ -17,8 +17,7 @@ const LandingPageHeader = () => {
           transition={{ duration: 1 }}
           className="grid items-center grid-flow-col gap-2"
         >
-          <img src={Logo} className="w-12" />
-          <p className="text-xl font-bold cursor-default">MeloStream</p>
+          <p className="text-xl font-bold cursor-default"><span className='text-2xl text-accent'>M</span>eloStream</p>
         </motion.div>
         <motion.div className='p-2 rounded-md bg-neutral-800 md:hidden' onClick={() => {setMenuOpen(!isMenuOpen)}}>
           <FiLogIn className='text-2xl'/>
