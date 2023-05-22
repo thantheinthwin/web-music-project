@@ -5,10 +5,44 @@ import { Artist1, Artist2, Artist3, Artist4, HeroImg1, HeroImg2, HeroImg3, HeroI
 
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { BiCheckCircle } from 'react-icons/bi'
+import { BsTelephone, BsMailbox } from 'react-icons/bs'
+import { HiOutlineLocationMarker } from 'react-icons/hi'
+import { ImFacebook, ImTwitter } from 'react-icons/im'
+import { FaInstagram } from 'react-icons/fa'
 
 import LandingPageHeader from './landingPageHeader'
 
 const landingPage = () => {
+  const contact = [
+    {
+      icon: <BsTelephone/>,
+      info: '+959799911254'
+    },
+    {
+      icon: <BsMailbox/>,
+      info: 'thantheinthwin.dev@gmail.com'
+    },
+    {
+      icon: <HiOutlineLocationMarker/>,
+      info: 'Yangon, Myanmar'
+    }
+  ]
+
+  const socialMedia = [
+    {
+      icon: <ImFacebook/>,
+      link: '/'
+    },
+    {
+      icon: <FaInstagram/>,
+      link: '/'
+    },
+    {
+      icon: <ImTwitter/>,
+      link: '/'
+    }
+  ]
+
   const container = {
     show: {
       transition: {
@@ -55,11 +89,11 @@ const landingPage = () => {
   return (
     <div>
       <LandingPageHeader />
-      <div className="w-full space-y-40 text-white bg-black">
+      <div className="w-full space-y-20 text-white bg-black lg:space-y-32">
         {/* Hero Section */}
         <div
           id="hero"
-          className="relative grid items-center w-11/12 grid-cols-10 gap-4 p-4 m-auto lg:w-3/4"
+          className="relative grid items-center w-11/12 grid-cols-10 gap-8 p-4 m-auto lg:w-3/4"
         >
           <div className="flex flex-col gap-2 col-span-full lg:col-span-7">
             <p className="text-5xl cursor-default font-secondary lg:text-7xl">
@@ -74,7 +108,7 @@ const landingPage = () => {
               destination for all things music.
             </p>
             <NavLink to={"/login"}>
-              <button className="flex items-center gap-1 p-2 text-black transition-all duration-200 ease-in-out rounded-full bg-primary hover:bg-neutral-600 hover:text-white">
+              <button className="flex items-center gap-1 px-4 py-2 mt-6 text-black transition-all duration-200 ease-in-out rounded-full bg-primary hover:bg-neutral-600 hover:text-white">
                 Start Listening <AiOutlineArrowRight />
               </button>
             </NavLink>
@@ -256,9 +290,9 @@ const landingPage = () => {
               loading="lazy"
             />
           </div>
-          <div className="absolute left-0 right-0 m-auto text-center top-3/4 col-span-full w-fit lg:relative lg:top-0 lg:col-span-6">
+          <div className="relative left-0 right-0 m-auto text-center col-span-full w-fit lg:top-0 lg:col-span-6">
             <h1 className="text-2xl font-bold">Plans & Pricing</h1>
-            <h6 className="mb-12 font-light">
+            <h6 className="mb-12 text-sm font-light">
               Choose a plan and start you music journey
             </h6>
             <div className="grid grid-cols-3 gap-4">
@@ -338,8 +372,39 @@ const landingPage = () => {
         </div>
 
         {/* Footer */}
-        <footer id='contact' className='relative'>
-          Footer
+        <footer id='contact' className='relative w-full py-6 space-y-4'>
+          <div className='relative grid w-11/12 gap-4 p-6 m-auto bg-accent rounded-b-3xl'>
+            <div className='absolute left-0 right-0 grid px-4 py-8 m-auto space-y-4 text-center md:w-2/3 bg-secondary -top-28 rounded-xl'>
+              <div>
+                <h1 className='text-sm font-light'>Subscribe Now</h1>
+                <h6>Get Notified Every Time We Post An New Update News</h6>
+              </div>
+              <form className='lg:m-auto lg:w-3/4'>   
+                  <label htmlFor="search" className="mb-2 text-sm font-medium sr-only">Your Email Address</label>
+                  <div className="relative">
+                      <input type="email" id="email" className="block w-full p-4 text-sm rounded-xl bg-neutral-700 placeholder:text-white focus:ring-accent focus:border-accent" placeholder="Your Email Address" required/>
+                      <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-accent hover:bg-opacity-50 focus:ring-4 focus:outline-none focus:ring-accent font-medium rounded-xl text-sm px-4 py-2 uppercase">Subscribe</button>
+                  </div>
+              </form>
+            </div>
+            <div className='relative grid grid-cols-3 gap-4 mt-20 md:mt-14'>
+              <div className='grid m-auto col-span-full md:col-span-1 w-fit'>
+                {contact.map((item, i) => (
+                  <div className='grid grid-cols-8 text-sm font-medium cursor-default lg:text-base'>
+                    <div className='col-span-1'>{item.icon}</div>
+                    <div className='col-span-7 break-words transition-all duration-200 ease-in-out hover:text-secondary'>{item.info}</div>
+                  </div>
+                ))}
+                <div className='flex gap-3 m-auto mt-2 w-fit md:mt-6'>
+                  {socialMedia.map((item, i) => <NavLink to={item.link} key={i} className='p-2 text-black transition-all duration-200 ease-in-out bg-white rounded-lg hover:bg-secondary hover:bg-opacity-90 hover:text-white'>{item.icon}</NavLink>)}
+                </div>
+              </div>
+              <div className='grid items-center bg-white cursor-default col-span-full md:col-span-2 rounded-xl'>
+                <h1 className='text-2xl font-bold text-center lg:text-6xl text-secondary'><span className='text-3xl lg:text-8xl text-accent'>M</span>eloStream</h1>
+              </div>
+            </div>
+          </div>
+          <div className='w-5/6 m-auto text-sm font-light text-neutral-400'>@ 2023 Thant Hein Thwin, Myanmar, All Rights Reserved</div>
         </footer>
       </div>
     </div>
