@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { Artist1, Artist2, Artist3, Artist4, HeroImg1, HeroImg2, HeroImg3, HeroImg4, PricingPic, ProcessImg1, ProcessImg2, ProcessImg3, ProcessImg4 } from '../assets/img'
 
@@ -87,9 +86,10 @@ const landingPage = () => {
   };
   
   return (
-    <div>
+    <div className='relative'>
       <LandingPageHeader />
-      <div className="w-full space-y-20 text-white bg-black lg:space-y-32">
+
+      <div className="relative w-full space-y-20 text-white bg-black lg:space-y-32">
         {/* Hero Section */}
         <div
           id="hero"
@@ -167,26 +167,26 @@ const landingPage = () => {
               of your music.
             </p>
           </div>
-          <div className='grid grid-cols-4 col-span-full md:col-span-4'>
+          <div className="grid grid-cols-4 col-span-full md:col-span-4">
             <img
               src={Artist1}
               alt=""
-              className="transition-all duration-200 ease-in-out col-span-full md:col-span-1 filter hover:grayscale"
+              className="transition-all duration-200 ease-in-out col-span-full filter hover:grayscale md:col-span-1"
             />
             <img
               src={Artist2}
               alt=""
-              className="transition-all duration-200 ease-in-out col-span-full md:col-span-1 filter hover:grayscale"
+              className="transition-all duration-200 ease-in-out col-span-full filter hover:grayscale md:col-span-1"
             />
             <img
               src={Artist3}
               alt=""
-              className="transition-all duration-200 ease-in-out col-span-full md:col-span-1 filter hover:grayscale"
+              className="transition-all duration-200 ease-in-out col-span-full filter hover:grayscale md:col-span-1"
             />
             <img
               src={Artist4}
               alt=""
-              className="transition-all duration-200 ease-in-out rounded-b-lg col-span-full md:col-span-1 filter hover:grayscale lg:rounded-r-lg"
+              className="transition-all duration-200 ease-in-out rounded-b-lg col-span-full filter hover:grayscale md:col-span-1 lg:rounded-r-lg"
             />
           </div>
         </div>
@@ -198,14 +198,16 @@ const landingPage = () => {
         >
           <div className="flex flex-col gap-2 col-span-full lg:col-span-6">
             <h2 className="text-lg text-primary">Our Process</h2>
-            <h1 className="text-3xl font-bold">Bring Your Music to the World</h1>
+            <h1 className="text-3xl font-bold">
+              Bring Your Music to the World
+            </h1>
             <p className="font-light">
               Share your tracks and mixes with global audience of music
               enthusiasts. Whether you're a budding artist, a seasoned producer,
               or a passionate creator,{" "}
               <span className="text-lg font-bold">MeloStream</span> provides a
-              platform to showcase your talent and connect with vibrant community
-              of listeners.
+              platform to showcase your talent and connect with vibrant
+              community of listeners.
             </p>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="grid col-span-1 gap-2 p-6 place-content-start rounded-xl bg-secondary">
@@ -365,50 +367,82 @@ const landingPage = () => {
                     Upgrade Plan Anytime
                   </li>
                 </ul>
-                <span className='mt-4 text-xs text-accent'>You must provide your student ID.</span>
+                <span className="mt-4 text-xs text-accent">
+                  You must provide your student ID.
+                </span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <footer id='contact' className='relative w-full py-6 space-y-4'>
-          <div className='relative grid w-11/12 gap-4 p-6 m-auto bg-accent rounded-b-3xl'>
-            <div className='absolute left-0 right-0 grid px-4 py-8 m-auto space-y-4 text-center md:w-2/3 bg-secondary -top-28 rounded-xl'>
+        <footer className="relative w-full py-6 space-y-4" id="contact">
+          <div className="relative grid w-11/12 gap-4 p-6 m-auto rounded-b-3xl bg-accent">
+            <div className="absolute left-0 right-0 grid px-4 py-8 m-auto space-y-4 text-center -top-28 rounded-xl bg-secondary md:w-2/3">
               <div>
-                <h1 className='text-sm font-light'>Subscribe Now</h1>
+                <h1 className="text-sm font-light">Subscribe Now</h1>
                 <h6>Get Notified Every Time We Post An New Update News</h6>
               </div>
-              <form className='lg:m-auto lg:w-3/4'>   
-                  <label htmlFor="search" className="mb-2 text-sm font-medium sr-only">Your Email Address</label>
-                  <div className="relative">
-                      <input type="email" id="email" className="block w-full p-4 text-sm rounded-xl bg-neutral-700 placeholder:text-white focus:ring-accent focus:border-accent" placeholder="Your Email Address" required/>
-                      <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-accent hover:bg-opacity-50 focus:ring-4 focus:outline-none focus:ring-accent font-medium rounded-xl text-sm px-4 py-2 uppercase">Subscribe</button>
-                  </div>
+              <form className="lg:m-auto lg:w-3/4">
+                <label
+                  htmlFor="search"
+                  className="mb-2 text-sm font-medium sr-only"
+                >
+                  Your Email Address
+                </label>
+                <div className="relative">
+                  <input
+                    type="email"
+                    id="email"
+                    className="block w-full p-4 text-sm rounded-xl bg-neutral-700 placeholder:text-white focus:border-accent focus:ring-accent"
+                    placeholder="Your Email Address"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="absolute bottom-2.5 right-2.5 rounded-xl bg-accent px-4 py-2 text-sm font-medium uppercase text-white hover:bg-opacity-50 focus:outline-none focus:ring-4 focus:ring-accent"
+                  >
+                    Subscribe
+                  </button>
+                </div>
               </form>
             </div>
-            <div className='relative grid grid-cols-3 gap-4 mt-20 md:mt-14'>
-              <div className='grid m-auto col-span-full md:col-span-1 w-fit'>
+            <div className="relative grid grid-cols-3 gap-4 mt-20 md:mt-14">
+              <div className="grid m-auto col-span-full w-fit md:col-span-1">
                 {contact.map((item, i) => (
-                  <div className='grid grid-cols-8 text-sm font-medium cursor-default lg:text-base'>
-                    <div className='col-span-1'>{item.icon}</div>
-                    <div className='col-span-7 break-words transition-all duration-200 ease-in-out hover:text-secondary'>{item.info}</div>
+                  <div key={i} className="grid grid-cols-8 text-sm font-medium cursor-default lg:text-base">
+                    <div className="col-span-1">{item.icon}</div>
+                    <div className="col-span-7 break-words transition-all duration-200 ease-in-out hover:text-secondary">
+                      {item.info}
+                    </div>
                   </div>
                 ))}
-                <div className='flex gap-3 m-auto mt-2 w-fit md:mt-6'>
-                  {socialMedia.map((item, i) => <NavLink to={item.link} key={i} className='p-2 text-black transition-all duration-200 ease-in-out bg-white rounded-lg hover:bg-secondary hover:bg-opacity-90 hover:text-white'>{item.icon}</NavLink>)}
+                <div className="flex gap-3 m-auto mt-2 md:m-0 w-fit md:mt-6">
+                  {socialMedia.map((item, i) => (
+                    <NavLink
+                      to={item.link}
+                      key={i}
+                      className="p-2 text-black transition-all duration-200 ease-in-out bg-white rounded-lg hover:bg-secondary hover:bg-opacity-90 hover:text-white"
+                    >
+                      {item.icon}
+                    </NavLink>
+                  ))}
                 </div>
               </div>
-              <div className='grid items-center bg-white cursor-default col-span-full md:col-span-2 rounded-xl'>
-                <h1 className='text-2xl font-bold text-center lg:text-6xl text-secondary'><span className='text-3xl lg:text-8xl text-accent'>M</span>eloStream</h1>
+              <div className="grid items-center bg-white cursor-default col-span-full rounded-xl md:col-span-2">
+                <h1 className="text-2xl font-bold text-center text-secondary lg:text-6xl">
+                  <span className="text-3xl text-accent lg:text-8xl">M</span>
+                  eloStream
+                </h1>
               </div>
             </div>
           </div>
-          <div className='w-5/6 m-auto text-sm font-light text-neutral-400'>@ 2023 Thant Hein Thwin, Myanmar, All Rights Reserved</div>
+          <div className="w-5/6 m-auto text-sm font-light text-neutral-400">
+            @ 2023 Thant Hein Thwin, Myanmar, All Rights Reserved
+          </div>
         </footer>
       </div>
     </div>
-    
   );
 }
 

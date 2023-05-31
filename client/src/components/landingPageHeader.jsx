@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Logo } from '../assets/img'
+import React, { useState } from 'react'
+import { Link } from 'react-scroll'
 import { NavLink } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -7,6 +7,25 @@ import { FiLogIn } from 'react-icons/fi'
 
 const LandingPageHeader = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = [
+    {
+      text: 'Home',
+      to: 'hero'
+    },
+    {
+      text: 'Process',
+      to: 'process'
+    },
+    {
+      text: 'Subscription',
+      to: 'pricing'
+    },
+    {
+      text: 'Contact',
+      to: 'contact'
+    }
+  ]
 
   return (
     <nav className='sticky top-0 z-50 w-full'>
@@ -23,14 +42,12 @@ const LandingPageHeader = () => {
           <FiLogIn className='text-2xl'/>
         </motion.div>
         <motion.div className='items-center hidden divide-x md:flex'>
-          <div className='flex gap-2 p-2'>
-            <NavLink>Home</NavLink>
-            <NavLink>Subscription</NavLink>
-            <NavLink>Operation</NavLink>
+          <div className='flex gap-4 p-2 cursor-default'>
+            {navLinks.map((item, i) => <Link key={i} className='font-medium transition-all duration-200 ease-in-out hover:text-accent' to={item.to} spy={true} smooth={true} offset={-100} duration={500}>{item.text}</Link>)}
           </div>
-          <div className='grid grid-flow-col gap-2 p-2'>
-            <NavLink className='w-full p-2 rounded-lg' to={'/login'}>Log In</NavLink>
-            <NavLink className='w-full p-2 rounded-lg bg-neutral-800 hover:bg-neutral-700' to={'/signup'}>Sign Up</NavLink>
+          <div className='grid grid-flow-col'>
+            <NavLink className='w-full p-2 font-medium transition-all duration-200 ease-in-out hover:text-accent' to={'/login'}>Log In</NavLink>
+            <NavLink className='w-full p-2 font-medium transition-all duration-200 ease-in-out rounded-lg bg-accent hover:bg-opacity-60' to={'/signup'}>Sign Up</NavLink>
           </div>
         </motion.div>
       </div>

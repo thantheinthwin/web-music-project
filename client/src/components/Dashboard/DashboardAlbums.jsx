@@ -6,6 +6,7 @@ import { RxCross1 } from 'react-icons/rx';
 import { useStateValue } from '../../context/StateProvider';
 import { getAllAlbums } from '../../api';
 import { actionType } from '../../context/reducer';
+
 import AlbumCard from '../Cards/AlbumCard';
 
 const DashboardAlbums = () => {
@@ -16,12 +17,12 @@ const DashboardAlbums = () => {
 
   useEffect(() => {
     if(!allAlbums){
-      getAllAlbums().then((data) => {
+      getAllAlbums().then((data => {
         dispatch({
           type: actionType.SET_ALL_ALBUMS,
           allAlbums: data.album
         })
-      })
+      }))
     }
   }, [allAlbums])
 

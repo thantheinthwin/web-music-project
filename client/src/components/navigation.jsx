@@ -34,7 +34,7 @@ const Navigation = () => {
   const [isUploadPage, setUploadPage] = useState(window.location.pathname.split("/").some(path => path === "upload"));
 
   useEffect(() => {
-    if(user?.user?.role === "admin"){
+    if(role === "admin"){
       setAdmin(true);
     }
   },[user])
@@ -144,7 +144,7 @@ const Navigation = () => {
               </div>}
               <div className="py-1" role="none">
                 <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Profile</NavLink>
-                <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Change account type</NavLink>
+                {(role === 'member') && <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Change account type</NavLink>}
               </div>
               {(isAdmin && !isDashboardBranch)  && <div className='py-1' role='none'>
                 <NavLink to={"/dashboard/home"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Dashboard</NavLink>

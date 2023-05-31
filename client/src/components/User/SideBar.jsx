@@ -67,7 +67,7 @@ const SideBar = () => {
           </NavLink>
         </li>}
       </ul>
-      <div className="overflow-y-auto border-2 border-sky-blue-100">
+      <div className="overflow-y-auto border-sky-blue-100">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis
         quam semper, lobortis enim vel, auctor elit. Integer molestie placerat
         augue id aliquet. Orci varius natoque penatibus et magnis dis parturient

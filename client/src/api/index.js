@@ -1,10 +1,13 @@
 import axios from 'axios';
+import bcrypt from 'bcryptjs';
+
+const salt = bcrypt.genSaltSync(10);
 
 const baseURL = "http://localhost:4000/";
 
 export const validateUser = async (token) => {
     try {
-        const res = await axios.get(`${baseURL}api/users/login`, {
+        const res = await axios.get(`${baseURL}api/users/loginWithGoogle`, {
             headers : {
                 Authorization : "Bearer " + token,
             }
@@ -14,6 +17,57 @@ export const validateUser = async (token) => {
         return null;
     }
 };
+
+export const login = async (token) => {
+    try {
+        const res = await axios.get(`${baseURL}api/users/login`, {
+            headers : {
+                Authorization : "Bearer " + token,
+            }
+        })
+    } catch (error) {
+        return null;
+    }
+}
+
+// export const login = async (userData) => {
+//     const {email, password} = userData;
+
+//     try {
+//         const res = await fetch(`${baseURL}api/users/login`, {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify({
+//                 email
+//             })
+//         })
+//         return res.json();
+//     } catch (error) {
+//         return null;
+//     }
+// }
+
+export const signup = async (userData, token) => {
+    const {username} = userData;
+
+    try {
+        const res = await fetch(`${baseURL}api/users/signup`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization : "Bearer " + token
+            },
+            body: JSON.stringify({
+                username
+            })
+        })
+        return res.json();
+    } catch (error) {
+        return null;
+    }
+}
 
 export const getAllUsers = async () => {
     try {

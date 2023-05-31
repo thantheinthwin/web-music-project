@@ -32,9 +32,6 @@ const UserSchema = mongoose.Schema({
     auth_time: {
         type: String,
         required: true,
-    },
-    password: {
-        type: String,
     }
 }, 
 {timestamps: true}

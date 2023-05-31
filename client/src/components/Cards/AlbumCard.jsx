@@ -10,12 +10,12 @@ const AlbumCard = ({data, index}) => {
     const [{allAlbums}, dispatch] = useStateValue();
     const [isDeleteConfirm, setDeleteConfirm] = useState(false);
 
-    const deleteAlbum = (songId) => {
-        removeAlbum(songId).then((res) => {
+    const deleteAlbum = (albumId) => {
+        removeAlbum(albumId).then((res) => {
           if(res) {
             dispatch({
-              type: actionType.SET_ALL_SONGS,
-              allSongs: data.data,
+              type: actionType.SET_ALL_ALBUMS,
+              allAlbums: data.data,
             })
           }
         })

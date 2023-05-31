@@ -10,7 +10,7 @@ body{
 }
 
 :root{
-    --primary: white;
+    --primary: rgb(37, 37, 37);
     --secondary: #1d1622;
 }
 
@@ -24,23 +24,23 @@ input[data-autocompleted] {
 
 /* Firefox */
 * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--secondary) var(--primary);
-  }
-  
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 14px;
-  }
-  
-  *::-webkit-scrollbar-track {
-    background: var(--primary);
-    border-radius: 6px;
-    opacity: 0.1;
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    background-color: var(--secondary);
-    border-radius: 14px;
-    border: 2px solid var(--primary);
-  }
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 14px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+  border-radius: 6px;
+  opacity: 0.1;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 14px;
+  border: 2px solid var(--primary);
+}
