@@ -1,7 +1,4 @@
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
-
-const salt = bcrypt.genSaltSync(10);
 
 const baseURL = "http://localhost:4000/";
 
@@ -29,25 +26,6 @@ export const login = async (token) => {
         return null;
     }
 }
-
-// export const login = async (userData) => {
-//     const {email, password} = userData;
-
-//     try {
-//         const res = await fetch(`${baseURL}api/users/login`, {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify({
-//                 email
-//             })
-//         })
-//         return res.json();
-//     } catch (error) {
-//         return null;
-//     }
-// }
 
 export const signup = async (userData, token) => {
     const {username} = userData;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { AnimatePresence, motion } from 'framer-motion'
 
 import {app} from '../config/firebase.config'
 import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword} from 'firebase/auth'
@@ -11,6 +11,7 @@ import { useStateValue } from '../context/StateProvider'
 import { actionType } from '../context/reducer'
 
 import {FcGoogle} from 'react-icons/fc'
+import {AiOutlineInfoCircle} from 'react-icons/ai'
 
 // Importing picture
 import { loginPic, Logo } from '../assets/img'
@@ -70,6 +71,9 @@ const Signup = ({setAuth}) => {
     confirmpassword: ''
   })
 
+  const [pwdFocus, setPwdFocus] = useState(false);
+  const [matchFocus, setMatchFocus] = useState(false);
+
   //validate password
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
   
@@ -77,13 +81,10 @@ const Signup = ({setAuth}) => {
   const [matchPassword, setMatchPassword] = useState(false);
 
   useEffect(() => {
-    const result = PWD_REGEX.text()
-    if(userData.password === userData.confirmpassword){
-      setMatchPassword(true);
-    }else(
-      setMatchPassword(false)
-    )
-
+    const result = PWD_REGEX.test(userData.password);
+    setValidPassword(result);
+    const match = userData.password === userData.confirmpassword;
+    setMatchPassword(match);
   }, [userData])
 
   const handleSubmit = async (e) => {
@@ -129,7 +130,7 @@ const Signup = ({setAuth}) => {
 
   return (
     <div className="relative w-screen h-screen">
-      <div className="absolute inset-0 flex items-center justify-center p-4">
+      <div className="absolute inset-0 flex items-center justify-center p-4 transition-all duration-200 ease-linear">
         <div className="grid grid-flow-col grid-rows-3 gap-4 p-12 rounded-md shadow-xl bg-neutral-900 backdrop-blur-md lg:max-w-4xl lg:p-4 xl:max-w-6xl">
           <div className="hidden col-span-1 row-span-3 bg-white rounded-l-md lg:flex">
             <img
@@ -210,6 +211,9 @@ const Signup = ({setAuth}) => {
                       placeholder="Password"
                       value={userData.password}
                       aria-invalid={validPassword ? "false" : "true"}
+                      aria-describedby='pwdnote'
+                      onFocus={()=>setPwdFocus(true)}
+                      onBlur={()=>setPwdFocus(false)}
                       onChange={(e) => handle(e)}
                       className="w-full h-10 text-sm placeholder-transparent border border-gray-300 rounded-md peer bg-neutral-900 caret-blue-300 focus:rounded-md focus:border-0 focus:ring-2 focus:ring-inset focus:ring-blue-300"
                       required
@@ -220,6 +224,15 @@ const Signup = ({setAuth}) => {
                     >
                       Password
                     </label>
+                    <AnimatePresence>
+                      {(pwdFocus && !validPassword) && 
+                        <motion.div initial={{opacity: 0, y: -20}} animate={{opacity: 1, y: 0}} exit={{opacity: 0, y: -20}} transition={{duration: 0.25, ease: "easeInOut"}} className='p-3 text-sm font-light border border-gray-300 rounded-md border-opacity-30 bg-secondary' id='pwdnote'>
+                          <p className='flex items-center gap-1'><i><AiOutlineInfoCircle/></i> 8 to 24 characters.</p>
+                          Must include uppercase and lowercase letters, a number and a special character.<br/>
+                          Allowed special characters:
+                          <span> !</span> <span>@</span> <span>#</span> <span>$</span>
+                        </motion.div>}
+                    </AnimatePresence>
                   </div>
                 </div>
                 <div className="w-full">
@@ -230,6 +243,10 @@ const Signup = ({setAuth}) => {
                       type="password"
                       placeholder="Confirm Password"
                       value={userData.confirmpassword}
+                      aria-invalid={matchPassword ? "false" : "true"}
+                      aria-describedby='matchnote'
+                      onFocus={()=>setMatchFocus(true)}
+                      onBlur={()=>setMatchFocus(false)}
                       onChange={(e) => handle(e)}
                       className="w-full h-10 text-sm placeholder-transparent border border-gray-300 rounded-md peer bg-neutral-900 caret-blue-300 focus:rounded-md focus:border-0 focus:ring-2 focus:ring-inset focus:ring-blue-300"
                       required
@@ -240,6 +257,9 @@ const Signup = ({setAuth}) => {
                     >
                       Confirm Password
                     </label>
+                    <AnimatePresence>
+                      {(matchFocus && !matchPassword) && <motion.div initial={{opacity: 0, y: -20}} animate={{opacity: 1, y: 0}} exit={{opacity: 0, y: -20}} transition={{duration: 0.25, ease: "easeInOut"}} className='p-3 text-sm font-light border border-gray-300 rounded-md border-opacity-30 bg-secondary' id='matchnote'>Must match the first input format field</motion.div>}
+                    </AnimatePresence>
                   </div>
                 </div>
                 <div className="flex justify-center pt-1">
