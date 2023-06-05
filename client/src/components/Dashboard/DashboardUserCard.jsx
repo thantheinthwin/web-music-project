@@ -10,6 +10,9 @@ import { actionType } from '../../context/reducer';
 import { useStateValue } from '../../context/StateProvider';
 import { removeUser } from '../../api';
 
+import { app } from '../../config/firebase.config';
+import { deleteUser as deleteAuthUser, getAuth } from 'firebase/auth';
+
 const DashboardUserCard = ({data, index, item}) => {
     const createdAt = moment(new Date(data.createdAt)).format("MMM Do YY");
   
@@ -19,17 +22,34 @@ const DashboardUserCard = ({data, index, item}) => {
   
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [{allUsers}, dispatch] = useStateValue();
-  
-    const deleteUser = (userId) => {
-      removeUser(userId).then((res) => {
-        if(res) {
-          dispatch({
-            type: actionType.SET_ALL_USERS,
-            allUsers: data.data,
-          })
-        }
+
+    const firebaseAuth = getAuth(app);
+
+    const deleteUser = (id, uid) => {
+      console.log(firebaseAuth);
+      deleteAuthUser("DdJpcO4FTifk8yKiUYyckzqgeDB2").then(() => {
+        console.log("successful");
+      }).catch((err) => {
+        console.log(err);
       })
     }
+    // const deleteUser = (uid) => {
+    //   console.log(uid);
+    //   // Delete user in firebase
+    //   deleteAuthUser(firebaseAuth, uid).then(() => {
+    //     console.log("successfull deleted")
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   })
+    //   // removeUser(userId).then((res) => {
+    //   //   if(res) {
+    //   //     dispatch({
+    //   //       type: actionType.SET_ALL_USERS,
+    //   //       allUsers: data.data,
+    //   //     })
+    //   //   }
+    //   // })
+    // }
   
     return (
       <div>
@@ -66,7 +86,7 @@ const DashboardUserCard = ({data, index, item}) => {
                       </p>
                       <span
                         className="col-span-1 row-span-1 p-2 text-center text-white transition-all duration-200 ease-in-out bg-green-500 rounded-lg hover:bg-green-600"
-                        onClick={() => deleteUser(data._id)}
+                        onClick={() => deleteUser(data._id, data.user_id)}
                       >
                         Yes
                       </span>
@@ -82,6 +102,7 @@ const DashboardUserCard = ({data, index, item}) => {
               <img
                 src={data.imageURL}
                 alt={data._id}
+                referrerPolicy='no-referrer'
                 className="object-cover w-10 h-10 rounded-md shadow-md"
               />
             </button>

@@ -112,12 +112,21 @@ const Login = ({setAuth}) => {
       
       setError(true);
 
-      if ( errorCode === 'auth/user-not-found' ){
-        setErrorMessage("User not found");
+      switch(errorCode){
+        case 'auth/user-not-found':
+          setErrorMessage("User not found");
+          break;
+        case 'auth/wrong-password':
+          setErrorMessage("Wrong password");
+          break;
       }
-      else if ( errorCode === 'auth/wrong-password' ){
-        setErrorMessage("Wrong password");
-      }
+
+      // if ( errorCode === 'auth/user-not-found' ){
+      //   setErrorMessage("User not found");
+      // }
+      // else if ( errorCode === 'auth/wrong-password' ){
+      //   setErrorMessage("Wrong password");
+      // }
     })
     e.preventDefault();
   }
@@ -201,6 +210,7 @@ const Login = ({setAuth}) => {
                     Password
                   </label>
                 </div>
+                {/* Error Message */}
                 <AnimatePresence>
                   {error && <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.25, ease: "easeInOut"}} className='text-sm text-center text-red-500'>{errorMessage}</motion.div>}
                 </AnimatePresence>

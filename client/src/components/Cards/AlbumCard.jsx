@@ -23,28 +23,30 @@ const AlbumCard = ({data, index}) => {
 
     return (
       <AnimatePresence>
-        <div className='relative flex flex-col items-center col-span-1 gap-2 p-2 rounded-md cursor-pointer bg-neutral-900'>
-            <div className='relative w-full overflow-hidden rounded-md'>
-                <motion.img src={data.imageURL} alt='thumbnail' className='object-cover w-full h-full rounded-md' referrerPolicy='no-referrer' whileHover={{ scale: 1.05 }}/>
-            </div>
-            <p className="text-base font-medium text-center">
-                {data.name.length > 15 ? `${data.name.slice(0, 15)}...` : data.name}
-                <span className="block text-sm font-light">
-                    {data.artist.length > 15
-                    ? `${data.artist.slice(0, 15)}...`
-                    : data.artist}
-                </span>
-            </p>
-            <div className="relative flex items-center justify-center w-full">
-                <motion.i
-                    whileHover={{ scale: 1.15 }}
-                    className="p-1 text-xl text-red-500 rounded-md hover:bg-neutral-800"
-                    onClick={() => {
-                    setDeleteConfirm(!isDeleteConfirm);
-                    }}
-                >
-                    <BsTrash />
-                </motion.i>
+        <div className='relative flex flex-col items-center col-span-1 gap-2 rounded-md cursor-pointer bg-neutral-900'>
+            <div className='p-2'>
+                <div className='relative w-full overflow-hidden rounded-md'>
+                    <motion.img src={data.imageURL} alt='thumbnail' className='object-cover w-full h-full rounded-md' referrerPolicy='no-referrer' whileHover={{ scale: 1.05 }}/>
+                </div>
+                <p className="text-base font-medium text-center">
+                    {data.name.length > 15 ? `${data.name.slice(0, 15)}...` : data.name}
+                    <span className="block text-sm font-light">
+                        {data.artist.length > 15
+                        ? `${data.artist.slice(0, 15)}...`
+                        : data.artist}
+                    </span>
+                </p>
+                <div className="relative flex items-center justify-center w-full">
+                    <motion.i
+                        whileHover={{ scale: 1.15 }}
+                        className="p-1 text-xl text-red-500 rounded-md hover:bg-neutral-800"
+                        onClick={() => {
+                        setDeleteConfirm(!isDeleteConfirm);
+                        }}
+                    >
+                        <BsTrash />
+                    </motion.i>
+                </div>
             </div>
             <AnimatePresence>
                 {isDeleteConfirm && (

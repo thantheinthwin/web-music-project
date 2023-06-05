@@ -87,11 +87,16 @@ const Signup = ({setAuth}) => {
     setMatchPassword(match);
   }, [userData])
 
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleSubmit = async (e) => {
     createUserWithEmailAndPassword(firebaseAuth, userData.email, userData.password).then((userCred) => {
       if(userCred){
         setAuth(true);
         window.localStorage.setItem("auth", "true");
+
+        setError(false);
 
         firebaseAuth.onAuthStateChanged((userCred) => {
           if(userCred){
@@ -116,8 +121,13 @@ const Signup = ({setAuth}) => {
         })
       }
     }).catch((err) => {
-      console.log(err);
-      window.alert(err);
+      var errorCode = err.code;
+      setError(true);
+
+      if(errorCode === "auth/email-already-in-use"){
+        setErrorMessage("User already exists");
+      }
+      // window.alert(err);
     })
     e.preventDefault();
   }
@@ -262,6 +272,10 @@ const Signup = ({setAuth}) => {
                     </AnimatePresence>
                   </div>
                 </div>
+                {/* Error Message */}
+                <AnimatePresence>
+                  {error && <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.25, ease: "easeInOut"}} className='text-sm text-center text-red-500'>{errorMessage}</motion.div>}
+                </AnimatePresence>
                 <div className="flex justify-center pt-1">
                   <input
                     id="agreedTerm"
