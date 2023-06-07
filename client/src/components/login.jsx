@@ -172,7 +172,7 @@ const Login = ({setAuth}) => {
               </p>
             </div>
             <div className="w-full">
-              <form className="grid w-4/5 gap-4 m-auto" method='POST'>
+              <form className="grid w-full gap-4 m-auto md:w-4/5" method='POST'>
                 <div className="relative">
                   <input
                     id="email"

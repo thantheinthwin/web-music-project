@@ -15,13 +15,13 @@ const SongCard = ({data, index}) => {
 
   const deleteSong = (songId) => {
     removeSong(songId).then((res) => {
-      if(res) {
+      if (res) {
         dispatch({
           type: actionType.SET_ALL_SONGS,
           allSongs: data.data,
-        })
+        });
       }
-    })
+    });
   }
   
   return (

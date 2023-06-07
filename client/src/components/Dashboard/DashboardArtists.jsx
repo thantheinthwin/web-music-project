@@ -7,6 +7,7 @@ import { RxCross1 } from 'react-icons/rx';
 import { useStateValue } from '../../context/StateProvider';
 import { getAllArtists } from '../../api';
 import { actionType } from '../../context/reducer';
+
 import { ArtistCard } from '../Cards';
 
 const DashboardArtists = () => {

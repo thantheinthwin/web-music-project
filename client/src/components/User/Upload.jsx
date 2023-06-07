@@ -28,11 +28,11 @@ const Upload = () => {
   },[allSongs])
 
   return (
-    <div className='grid w-full grid-flow-row grid-cols-8 gap-4 p-4'>
-      <div className='p-2 text-sm font-semibold text-gray-400 border rounded-lg col-span-full'>
+    <div className='grid w-full grid-flow-row grid-cols-8 gap-2 p-2'>
+      <div className='p-2 text-sm font-semibold text-gray-400 border rounded-md col-span-full'>
         You have uploaded {totalSongs} songs.
       </div>
-      <div className='p-2 col-span-full'>Upload section</div>
+      <div className='p-2 rounded-md col-span-full bg-secondary'>Upload section</div>
     </div>
   )
 }

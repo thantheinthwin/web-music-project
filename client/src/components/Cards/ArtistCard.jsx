@@ -2,39 +2,25 @@ import React, { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { useStateValue } from '../../context/StateProvider'
-import { getAllSongs, removeArtist } from '../../api';
+import { removeArtist } from '../../api';
 import { actionType } from '../../context/reducer';
 
 import { BsTrash } from 'react-icons/bs';
 
 const ArtistCard = ({data, index}) => {
     const [isDeleteConfirm, setDeleteConfirm] = useState(false);
-
-    const[{allSongs}, dispatch] = useStateValue();
-
+    const[{allArtists}, dispatch] = useStateValue();
     const totalSongs = useRef(0);
-
-    useEffect(() => {
-        if(!allSongs){
-            getAllSongs().then((data) => {
-                dispatch({
-                    type: actionType.SET_ALL_SONGS,
-                    allSongs: data.song
-                })
-            })
-            
-        }
-    }, [allSongs])
 
     const deleteArtist = (artistId) => {
         removeArtist(artistId).then((res) => {
-            if(res){
-                dispatch({
-                    type: actionType.SET_ALL_SONGS,
-                    allSongs: data.data,
-                })
-            }
-        })
+          if (res) {
+            dispatch({
+              type: actionType.SET_ALL_ARTISTS,
+              allArtists: data.data,
+            });
+          }
+        });
     }
     
     return (

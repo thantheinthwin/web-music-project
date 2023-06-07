@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { getAllAlbums, getAllArtists, getAllSongs, getAllUsers } from '../../api';
 
@@ -124,7 +124,7 @@ const DashboardHome = () => {
       initial="hidden"
       animate="show"
       exit="exit"
-      className="grid items-center w-full grid-flow-row col-span-6 p-6 mt-20 justify-evenly gap-x-3 gap-y-5 lg:col-start-2 lg:grid-flow-col"
+      className="relative grid items-center w-full grid-flow-row col-span-6 p-6 mt-20 justify-evenly gap-x-3 gap-y-5 lg:col-start-2 lg:grid-flow-col"
     >
       {tags.map((tag, i) => (
         <motion.div variants={item} key={i}>

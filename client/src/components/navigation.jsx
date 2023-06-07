@@ -1,4 +1,5 @@
 import { getAuth } from 'firebase/auth';
+import { app } from '../config/firebase.config';
 import React, { useEffect, useState } from 'react'
 
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
@@ -10,13 +11,13 @@ import { Turn as Hamburger } from 'hamburger-react'
 import { Logo } from '../assets/img';
 
 import { NavLink, useNavigate } from 'react-router-dom';
-import { app } from '../config/firebase.config';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useStateValue } from '../context/StateProvider';
 
 import { isActiveDashboardNav, isNotActiveDashboardNav } from '../utils/styles';
 
-const Navigation = () => {  
+const Navigation = (props) => {  
+  const {openProfile} = props;
   const [{user}, dispatch] = useStateValue();
 
   const username = user?.user?.name;
@@ -31,7 +32,7 @@ const Navigation = () => {
 
   const [isDashboardBranch, setDashboardBranch] = useState(window.location.pathname.split("/").some(path => path === "dashboard"));
 
-  const [isUploadPage, setUploadPage] = useState(window.location.pathname.split("/").some(path => path === "upload"));
+  // const [isUploadPage, setUploadPage] = useState(window.location.pathname.split("/").some(path => path === "upload"));
 
   useEffect(() => {
     if(role === "admin"){
@@ -105,7 +106,7 @@ const Navigation = () => {
             </div>
         </div>}
 
-        {(!isMobile && isDashboardBranch) && <img src={Logo} className='object-cover w-12 h-12 m-2'/>}
+        {(!isMobile && isDashboardBranch) && <img src={Logo} className='object-cover w-12 h-12 m-2' alt="Logo"/>}
         
         {
           (isMobile && isDashboardBranch) && <div className='relative'>
@@ -143,8 +144,9 @@ const Navigation = () => {
                 <NavLink to={"/user/home"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Home</NavLink>
               </div>}
               <div className="py-1" role="none">
-                <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Profile</NavLink>
+                <div className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out select-none hover:bg-neutral-700' onClick={() => {openProfile(); setIsMenu(false)}}>Profile</div>
                 {(role === 'member') && <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Change account type</NavLink>}
+                {role === 'artist' && <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>My Songs</NavLink>}
               </div>
               {(isAdmin && !isDashboardBranch)  && <div className='py-1' role='none'>
                 <NavLink to={"/dashboard/home"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Dashboard</NavLink>

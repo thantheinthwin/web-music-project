@@ -112,7 +112,8 @@ export const removeAlbum = async (albumId) => {
 
 export const removeArtist = async (artistId) => {
     try {
-        const res = await axios.delete(`${baseURL}api/artists/delete/${artistId}`)
+        const res = await axios.delete(`${baseURL}api/artists/delete/${artistId}`);
+        return res;
     } catch (error) {
         return null;
     }

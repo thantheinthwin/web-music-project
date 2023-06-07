@@ -169,7 +169,7 @@ const Signup = ({setAuth}) => {
             <div className="w-full">
               <form
                 method="POST"
-                className="grid w-4/5 gap-5 mx-auto"
+                className="grid w-full gap-5 mx-auto md:w-4/5"
                 onSubmit={handleSubmit}
               >
                 <div className="w-full">

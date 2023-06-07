@@ -172,21 +172,25 @@ const landingPage = () => {
               src={Artist1}
               alt=""
               className="transition-all duration-200 ease-in-out col-span-full filter hover:grayscale md:col-span-1"
+              loading='lazy'
             />
             <img
               src={Artist2}
               alt=""
               className="transition-all duration-200 ease-in-out col-span-full filter hover:grayscale md:col-span-1"
+              loading='lazy'
             />
             <img
               src={Artist3}
               alt=""
               className="transition-all duration-200 ease-in-out col-span-full filter hover:grayscale md:col-span-1"
+              loading='lazy'
             />
             <img
               src={Artist4}
               alt=""
               className="transition-all duration-200 ease-in-out rounded-b-lg col-span-full filter hover:grayscale md:col-span-1 lg:rounded-r-lg"
+              loading='lazy'
             />
           </div>
         </div>
@@ -250,6 +254,7 @@ const landingPage = () => {
                   src={ProcessImg1}
                   alt=""
                   className="h-auto max-w-full transition-all duration-500 ease-in-out rounded-full rounded-tl-none filter hover:grayscale"
+                  loading='lazy'
                 />
               </div>
               <div>
@@ -257,6 +262,7 @@ const landingPage = () => {
                   src={ProcessImg2}
                   alt=""
                   className="h-auto max-w-full transition-all duration-500 ease-in-out rounded-lg filter hover:grayscale"
+                  loading='lazy'
                 />
               </div>
             </div>
@@ -266,6 +272,7 @@ const landingPage = () => {
                   src={ProcessImg4}
                   alt=""
                   className="h-auto max-w-full transition-all duration-500 ease-in-out rounded-lg filter hover:grayscale"
+                  loading='lazy'
                 />
               </div>
               <div>
@@ -273,6 +280,7 @@ const landingPage = () => {
                   src={ProcessImg3}
                   alt=""
                   className="h-auto max-w-full transition-all duration-500 ease-in-out rounded-full rounded-bl-none filter hover:grayscale"
+                  loading='lazy'
                 />
               </div>
             </div>
