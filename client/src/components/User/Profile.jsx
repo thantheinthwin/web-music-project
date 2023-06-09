@@ -1,33 +1,90 @@
-import React from 'react'
-import { useStateValue } from '../../context/StateProvider'
+import React, { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
-import { MdKeyboardArrowRight } from 'react-icons/md';
+import { MdKeyboardArrowRight, MdOutlineSaveAlt } from 'react-icons/md';
 import { IoCloseOutline } from 'react-icons/io5';
+import { HiOutlinePencilAlt } from 'react-icons/hi';
+import {AiOutlineInfoCircle} from 'react-icons/ai'
+
+import { removeUser } from '../../api';
+import { actionType } from '../../context/reducer';
+import { useStateValue } from '../../context/StateProvider';
 
 import { app } from '../../config/firebase.config';
-import { getAuth } from '@firebase/auth';
+import { deleteUser as deleteAuthUser, getAuth } from '@firebase/auth';
 
 const Profile = (props) => {
     const {open, handleClose} = props;
-    const [{user}, dispatch] = useStateValue();
+    const [{user, allUsers}, dispatch] = useStateValue();
+
+    const navigate = useNavigate();
 
     const username = user?.user?.name;
     const email = user?.user?.email;
     const subscription = user?.user?.subscription;
     const role = user?.user?.role;
     const imageURL = user?.user?.imageURL;
-    const phnumber = user?.user?.phnumber;
+    const phnumber = user?.user?.ph_number;
     const email_verified = user?.user?.email_verified;
+    const userid = user?.user?._id;
 
-    const currentUser = getAuth(app).currentUser;
-    
-    console.log(currentUser);
+    const firebaseAuth = getAuth(app);
+    const currentUser = firebaseAuth.currentUser;
+    // console.log(currentUser);
+
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [editPhoneNumber, setEditPhoneNumber] = useState(false);
+
+    const [deleteConfirm, setDeleteConfirm] = useState(false);
+    const [resetConfirm, setResetConfirm] = useState(false);
+
+    const deleteUser = (authUser, uid) => {
+      deleteAuthUser(authUser).then(()=>{
+        removeUser(uid).then(() => {
+          firebaseAuth.signOut().then(() => {
+            dispatch({
+              type: actionType.SET_ALL_USERS,
+              allUsers: null,
+            })
+            window.localStorage.setItem("auth", "false");
+          }).catch((e) => console.log(e));
+        })
+      }).catch((error) => {
+        console.log(error);
+      })
+    }
+
+    //validate password
+    const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+    const [validPassword, setValidPassword] = useState(false);
+    const [matchPassword, setMatchPassword] = useState(false);
+
+    const [pwdFocus, setPwdFocus] = useState(false);
+    const [matchFocus, setMatchFocus] = useState(false);
+
+    const [passwd, setPasswd] = useState({
+      newPasswd: '',
+      confirmPasswd: ''
+    })
+
+    useEffect(() => {
+      const result = PWD_REGEX.test(passwd.newPasswd);
+      setValidPassword(result);
+      const match = passwd.newPasswd === passwd.confirmPasswd;
+      setMatchPassword(match);
+    }, [passwd])
+
+    const handle = (e) => {
+      const newData = {...passwd}
+      newData[e.target.id] = e.target.value
+      setPasswd(newData)
+    }
 
     return (
       <AnimatePresence>
         {open && <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{type: 'spring', duration: 0.5}} className='absolute w-screen h-screen bg-black bg-opacity-50'>
-          <motion.div initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.5}} transition={{type: 'spring', duration: 0.5}} className='fixed rounded-md top-0 bottom-0 left-0 right-0 grid gap-4 p-5 m-auto overflow-x-hidden overflow-y-auto bg-neutral-900 w-[calc(100%-1rem)] md:w-fit h-fit'>
+          <motion.div initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.5}} transition={{type: 'spring', duration: 0.5}} className='fixed rounded-md top-0 bottom-0 left-0 right-0 grid gap-4 p-5 m-auto overflow-x-hidden overflow-y-auto bg-neutral-900 w-[calc(100%-1rem)] md:w-96 h-fit'>
             <div className='flex items-center justify-between'>
               <p className='text-3xl font-bold text-accent'>Profile</p>
               <i className='text-xl text-white rounded-full hover:bg-neutral-700' onClick={()=>{handleClose()}}><IoCloseOutline/></i>
@@ -41,14 +98,94 @@ const Profile = (props) => {
               <p className='text-sm font-light'>Role</p>
               <p className={`px-2 py-1 text-xs rounded-full w-fit ${role === "admin" ? "bg-red-500" : "bg-green-500"}`}>{role}</p>
               <p className='text-sm font-light'>Subscription</p>
-              <p>{subscription ? "Subscribed" : "Free User"}</p>    
+              <p className={subscription ? 'text-green-500': 'text-red-500'}>{subscription ? "Subscribed" : "Free User"}</p>    
               <p className='text-sm font-light'>Phone number</p>
-              <p className={`font-light ${phnumber !== "" ? "text-red-500": ""}`}>{phnumber !== "" ? "unavailable": phnumber}</p>    
-              {email_verified ? <p>Email verified</p> : <p className='flex items-center gap-1'>Verify email <i className='text-lg'><MdKeyboardArrowRight/></i></p>} 
+              {!editPhoneNumber && <div className='flex items-center gap-2'>
+                <p className={`font-light ${phnumber == null ? "text-red-500": ""}`}>{phnumber == null ? "unavailable": phnumber}</p>
+                <i className='p-2 text-lg rounded-md hover:bg-red-500 hover:bg-opacity-50 hover:text-red-500' onClick={()=> {setEditPhoneNumber(true)}}><HiOutlinePencilAlt/></i>
+              </div>}
+              {editPhoneNumber && <div className='flex items-center'>
+                <input
+                  id='tel'
+                  type="tel"
+                  placeholder={phnumber !== null ? phnumber : 'Enter your phone number'}
+                  value={phoneNumber}
+                  onChange={(e)=>{setPhoneNumber(e.target.value)}}
+                  className="w-full h-full bg-transparent border rounded-l-lg border-neutral-800 focus:border-neutral-800 focus:ring-0"
+                ></input>
+                <button className='h-full p-2 text-lg bg-neutral-800 rounded-r-md hover:bg-neutral-700' onClick={()=>{setEditPhoneNumber(false)}}><MdOutlineSaveAlt/></button>
+              </div>}
+              {email_verified ? <p className='font-bold text-green-500'>Email verified</p> : <p className='flex items-center gap-1'>Verify email <i className='text-lg'><MdKeyboardArrowRight/></i></p>} 
             </div>
-            <div className='p-2 text-sm text-red-500 border border-red-500 rounded-md cursor-default select-none w-fit hover:bg-red-500 hover:text-white justify-self-end'>Reset password</div>
-            <div className='p-2 text-sm text-red-500 border border-red-500 rounded-md cursor-default select-none w-fit hover:bg-red-500 hover:text-white justify-self-end'>Delete account</div>
+            <div className='p-2 text-sm text-red-500 border border-red-500 rounded-md cursor-default select-none w-fit hover:bg-red-500 hover:text-white justify-self-end' onClick={() => {setResetConfirm(true)}}>Reset password</div>
+            <div className='p-2 text-sm text-red-500 border border-red-500 rounded-md cursor-default select-none w-fit hover:bg-red-500 hover:text-white justify-self-end' onClick={() => {setDeleteConfirm(true)}}>Delete account</div>
           </motion.div>
+          
+          {/* Reset password */}
+          <AnimatePresence>
+            {resetConfirm && <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.5, ease: 'easeInOut'}} className='absolute w-screen h-screen bg-black bg-opacity-50'>
+              <div className='fixed top-0 bottom-0 left-0 right-0 grid gap-2 p-5 m-auto rounded-md bg-neutral-900 h-fit w-[calc(100%-3rem)] md:w-96 divide-y divide-neutral-600'>
+                <h1 className='text-2xl font-bold text-center text-red-500'>Reset Password</h1>
+                <div className='grid gap-2 pt-2'>
+                  <form method='POST' className='grid gap-2'>
+                    <div className='grid'>
+                      <input
+                        id='newPasswd'
+                        type="password"
+                        placeholder='Enter your new password'
+                        value={passwd.newPasswd}
+                        onChange={(e) => {handle(e)}}
+                        onFocus={() => {setPwdFocus(true)}}
+                        onBlur={() => {setPwdFocus(false)}}
+                        className="w-full h-full text-sm bg-transparent border rounded-l-lg border-neutral-800 focus:border-neutral-800 focus:ring-0"
+                      ></input>
+                      <AnimatePresence>
+                        {(pwdFocus && !validPassword) && 
+                          <motion.div initial={{opacity: 0, y: -20}} animate={{opacity: 1, y: 0}} exit={{opacity: 0, y: -20}} transition={{duration: 0.25, ease: "easeInOut"}} className='p-3 text-sm font-light border border-gray-300 rounded-md border-opacity-30 bg-secondary' id='pwdnote'>
+                            <p className='flex items-center gap-1'><i><AiOutlineInfoCircle/></i> 8 to 24 characters.</p>
+                            Must include uppercase and lowercase letters, a number and a special character.<br/>
+                            Allowed special characters:
+                            <span> !</span> <span>@</span> <span>#</span> <span>$</span>
+                          </motion.div>}
+                      </AnimatePresence>
+                    </div>
+                    <div className='grid'>
+                      <input
+                        id='confirmPasswd'
+                        type="password"
+                        placeholder='Confirm your password'
+                        value={passwd.confirmPasswd}
+                        onChange={(e) => {handle(e)}}
+                        onFocus={() => setMatchFocus(true)}
+                        onBlur={() => setMatchFocus(false)}
+                        className="w-full h-full text-sm bg-transparent border rounded-l-lg border-neutral-800 focus:border-neutral-800 focus:ring-0"
+                      ></input>
+                      <AnimatePresence>
+                        {(matchFocus && !matchPassword) && <motion.div initial={{opacity: 0, y: -20}} animate={{opacity: 1, y: 0}} exit={{opacity: 0, y: -20}} transition={{duration: 0.25, ease: "easeInOut"}} className='p-3 text-sm font-light border border-gray-300 rounded-md border-opacity-30 bg-secondary' id='matchnote'>Must match the first input format field</motion.div>}
+                      </AnimatePresence>
+                    </div>
+                  </form>
+                  <div className='flex items-center gap-2'>
+                    <div className='w-full p-2 text-center bg-green-500 rounded-md cursor-default select-none' onClick={() => {}}>Confirm</div>
+                    <div className='w-full p-2 text-center bg-red-500 rounded-md cursor-default select-none' onClick={() => {setResetConfirm(false)}}>Cancel</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>}
+          </AnimatePresence>
+
+          {/* Delete Account Confirmation */}
+          <AnimatePresence>
+            {deleteConfirm && <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.5, ease: 'easeInOut'}} className='absolute w-screen h-screen bg-black bg-opacity-50'>
+              <div className='fixed top-0 bottom-0 left-0 right-0 grid gap-2 p-5 m-auto rounded-md bg-neutral-900 h-fit w-[calc(100%-3rem)] md:w-96'>
+                <p className='text-center'>Are you sure you want to delete you account?</p>
+                <div className='flex gap-2'>
+                  <div className='w-full p-2 text-center bg-red-500 rounded-md cursor-default select-none' onClick={() => {deleteUser(currentUser, userid)}}>Delete</div>
+                  <div className='w-full p-2 text-center bg-green-500 rounded-md cursor-default select-none' onClick={() => {setDeleteConfirm(false)}}>Cancel</div>
+                </div>
+              </div>
+            </motion.div>}
+          </AnimatePresence>
         </motion.div>}
       </AnimatePresence> 
     )

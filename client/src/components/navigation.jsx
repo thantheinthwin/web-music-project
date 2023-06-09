@@ -117,7 +117,7 @@ const Navigation = (props) => {
               animate={{opacity: 1, y: 0, transition: {type: 'spring', duration: 0.5}}}
               exit={{opacity: 0, y: -25, transition: {type: 'spring', duration: 0.5}}}
               className='absolute z-40 grid w-screen p-4 text-xl font-medium text-center shadow-md bg-neutral-900'>
-                { menuItems.map((item) => <NavLink key={item.id} to={item.link} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav} onClick={()=>setOpen(false)}>{item.to}</NavLink>)}
+                { menuItems.map((item, i) => <NavLink key={i} to={item.link} className={({isActive}) => isActive ? isActiveDashboardNav : isNotActiveDashboardNav} onClick={()=>setOpen(false)}>{item.to}</NavLink>)}
               </motion.nav>}
             </AnimatePresence>
           </div>

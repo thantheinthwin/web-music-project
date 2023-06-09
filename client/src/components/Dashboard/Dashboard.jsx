@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Navigation from '../navigation'
 import { NavLink, Route, Routes } from 'react-router-dom'
+
+import { Profile } from '../User'
 
 // Importing Routes
 import { DashboardHome, DashboardUsers, DashboardSongs, DashboardAlbums, DashboardArtists} from './index'
@@ -10,6 +12,8 @@ import { AiOutlineHome } from 'react-icons/ai'
 import { isActiveDashboardNav, isNotActiveDashboardNav } from '../../utils/styles'
 
 const Dashboard = () => {  
+  const [profileOpen, setProfileOpen] = useState(false);
+
   const menuItems = [
     {
       link: "/dashboard/home",
@@ -55,10 +59,18 @@ const Dashboard = () => {
       element: <DashboardAlbums />,
     },
   ];
+
+  const handleOpen = () => {
+    setProfileOpen(true);
+  }
+
+  const handleClose = () => {
+    setProfileOpen(false);
+  }
   
   return (
-    <div className="relative flex flex-col items-center justify-center w-full h-auto">
-      <Navigation />
+    <div className="relative flex flex-col items-center w-full h-screen">
+      <Navigation openProfile={handleOpen} />
       <div className="grid items-center w-full text-white lg:grid-cols-10">
         <nav className="hidden grid-flow-row p-4 text-base font-medium justify-evenly rounded-b-md lg:col-span-6 lg:col-start-3 lg:grid lg:grid-flow-col bg-neutral-900">
           {menuItems.map((item, i) => (
@@ -81,6 +93,7 @@ const Dashboard = () => {
           </Routes>
         </div>
       </div>
+      <Profile open={profileOpen} handleClose={handleClose}/>
     </div>
   );
 }

@@ -97,6 +97,7 @@ const Login = ({setAuth}) => {
                 })
               })
             })
+            navigate("/user/home", {replace: true})
           } else {
             setAuth(false);
             dispatch({

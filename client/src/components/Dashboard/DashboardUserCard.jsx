@@ -25,14 +25,14 @@ const DashboardUserCard = ({data, index, item}) => {
 
     const firebaseAuth = getAuth(app);
 
-    const deleteUser = (id, uid) => {
-      console.log(firebaseAuth);
-      deleteAuthUser("DdJpcO4FTifk8yKiUYyckzqgeDB2").then(() => {
-        console.log("successful");
-      }).catch((err) => {
-        console.log(err);
-      })
-    }
+    // const deleteUser = (id, uid) => {
+    //   console.log(firebaseAuth);
+    //   deleteAuthUser("DdJpcO4FTifk8yKiUYyckzqgeDB2").then(() => {
+    //     console.log("successful");
+    //   }).catch((err) => {
+    //     console.log(err);
+    //   })
+    // }
     // const deleteUser = (uid) => {
     //   console.log(uid);
     //   // Delete user in firebase
@@ -50,6 +50,17 @@ const DashboardUserCard = ({data, index, item}) => {
     //   //   }
     //   // })
     // }
+
+    const deleteUser = (uid) => {
+      removeUser(uid).then((res) => {
+        if(res){
+          dispatch({
+            type: actionType.SET_ALL_USERS,
+            allUsers: data.data,
+          })
+        }
+      })
+    }
   
     return (
       <div>
@@ -86,7 +97,7 @@ const DashboardUserCard = ({data, index, item}) => {
                       </p>
                       <span
                         className="col-span-1 row-span-1 p-2 text-center text-white transition-all duration-200 ease-in-out bg-green-500 rounded-lg hover:bg-green-600"
-                        onClick={() => deleteUser(data._id, data.user_id)}
+                        onClick={() => deleteUser(data._id)}
                       >
                         Yes
                       </span>

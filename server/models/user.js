@@ -19,7 +19,7 @@ const UserSchema = mongoose.Schema({
         type: Boolean,
     },
     ph_number: {
-        type: String
+        type: Array,
     },
     role: {
         type: String,
