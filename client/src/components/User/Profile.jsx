@@ -12,7 +12,7 @@ import { actionType } from '../../context/reducer';
 import { useStateValue } from '../../context/StateProvider';
 
 import { app } from '../../config/firebase.config';
-import { deleteUser as deleteAuthUser, getAuth } from '@firebase/auth';
+import { deleteUser as deleteAuthUser, getAuth, updatePassword } from '@firebase/auth';
 
 const Profile = (props) => {
     const {open, handleClose} = props;
@@ -28,6 +28,8 @@ const Profile = (props) => {
     const phnumber = user?.user?.ph_number;
     const email_verified = user?.user?.email_verified;
     const userid = user?.user?._id;
+
+    // console.log(user);
 
     const firebaseAuth = getAuth(app);
     const currentUser = firebaseAuth.currentUser;
@@ -81,6 +83,15 @@ const Profile = (props) => {
       setPasswd(newData)
     }
 
+    const handleSubmit = async (newPasswd) => {
+      updatePassword(currentUser, newPasswd).then(() => {
+        setResetConfirm(false);
+        // console.log("Password changed successfully");
+      }).catch((error) => {
+        console.log(error);
+      })
+    }
+
     return (
       <AnimatePresence>
         {open && <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{type: 'spring', duration: 0.5}} className='absolute w-screen h-screen bg-black bg-opacity-50'>
@@ -101,7 +112,7 @@ const Profile = (props) => {
               <p className={subscription ? 'text-green-500': 'text-red-500'}>{subscription ? "Subscribed" : "Free User"}</p>    
               <p className='text-sm font-light'>Phone number</p>
               {!editPhoneNumber && <div className='flex items-center gap-2'>
-                <p className={`font-light ${phnumber == null ? "text-red-500": ""}`}>{phnumber == null ? "unavailable": phnumber}</p>
+                <p className={`font-light ${phnumber == "" ? "text-red-500": ""}`}>{phnumber == "" ? "unavailable": phnumber}</p>
                 <i className='p-2 text-lg rounded-md hover:bg-red-500 hover:bg-opacity-50 hover:text-red-500' onClick={()=> {setEditPhoneNumber(true)}}><HiOutlinePencilAlt/></i>
               </div>}
               {editPhoneNumber && <div className='flex items-center'>
@@ -166,7 +177,7 @@ const Profile = (props) => {
                     </div>
                   </form>
                   <div className='flex items-center gap-2'>
-                    <div className='w-full p-2 text-center bg-green-500 rounded-md cursor-default select-none' onClick={() => {}}>Confirm</div>
+                    {matchPassword ? <div className='w-full p-2 text-center bg-green-500 rounded-md cursor-default select-none' onClick={() => {handleSubmit(passwd.newPasswd)}}>Confirm</div> : <div className='w-full p-2 text-center rounded-md cursor-default select-none bg-neutral-700'>Nope</div>}
                     <div className='w-full p-2 text-center bg-red-500 rounded-md cursor-default select-none' onClick={() => {setResetConfirm(false)}}>Cancel</div>
                   </div>
                 </div>
