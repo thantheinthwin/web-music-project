@@ -44,34 +44,13 @@ router.get("/login", async (req, res) => {
         if(!decodeValue){
             return res.status(505).json({message: "Unauthorized"});
         } else {
-            return res.status(200).json({decodeValue});
+            // return res.status(200).json({decodeValue});
+            updateUserData(decodeValue, req, res);
         }
     } catch (error) {
         return res.status(505).json({message: error});
     }
 })
-// router.post('/login', async (req, res) => {
-//     if(!req){
-//         return res.status(500).send({message: 'invalid value'})
-//     }
-
-//     try {
-//         const userExists = await user.findOne({"email": req.body.email});
-
-//         if(!userExists){
-//             return res.status(400).send({success:false, message: "User not exist"})
-//         }else{
-//             const result = await user.findOne({"password": req.body.password});
-//             if(result){
-//                 return res.status(200).send({success: true, user: result})
-//             }else{
-//                 return res.status(400).send({success: false, message: "Incorrect password"})
-//             }
-//         }
-//     } catch (error) {
-//         return res.status(505).json({message: error});
-//     }
-// })
 
 router.post('/signup', async (req, res) => {
     if(!req.headers.authorization){
@@ -138,7 +117,10 @@ const updateUserData = async (decodeValue, req, res) => {
     try {
         const result = await user.findOneAndUpdate(
             filter, 
-            {auth_time : decodeValue.auth_time},
+            {
+                auth_time : decodeValue.auth_time,
+                email_verified : decodeValue.email_verified,
+            },
             options
         );
         res.status(200).send({user: result});

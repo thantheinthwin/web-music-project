@@ -24,7 +24,7 @@ const DashboardUserCard = ({data, index, item}) => {
     const [{allUsers}, dispatch] = useStateValue();
 
     const firebaseAuth = getAuth(app);
-
+    
     // const deleteUser = (id, uid) => {
     //   console.log(firebaseAuth);
     //   deleteAuthUser("DdJpcO4FTifk8yKiUYyckzqgeDB2").then(() => {

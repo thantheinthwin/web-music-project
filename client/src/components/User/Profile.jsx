@@ -12,11 +12,11 @@ import { actionType } from '../../context/reducer';
 import { useStateValue } from '../../context/StateProvider';
 
 import { app } from '../../config/firebase.config';
-import { deleteUser as deleteAuthUser, getAuth, updatePassword } from '@firebase/auth';
+import { deleteUser as deleteAuthUser, getAuth, sendEmailVerification, signOut, updatePassword } from '@firebase/auth';
 
 const Profile = (props) => {
     const {open, handleClose} = props;
-    const [{user, allUsers}, dispatch] = useStateValue();
+    const [{user}, dispatch] = useStateValue();
 
     const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const Profile = (props) => {
 
     const firebaseAuth = getAuth(app);
     const currentUser = firebaseAuth.currentUser;
-    // console.log(currentUser);
+    console.log(currentUser);
 
     const [phoneNumber, setPhoneNumber] = useState("");
     const [editPhoneNumber, setEditPhoneNumber] = useState(false);
@@ -92,6 +92,18 @@ const Profile = (props) => {
       })
     }
 
+    const emailVerification = async (user) => {
+      sendEmailVerification(user).then(() => {
+        console.log("Email verified");
+        firebaseAuth.signOut().then(() => {
+          window.localStorage.setItem("auth", "false");
+        }).catch((e) => console.log(e));
+        window.location.replace('https://mail.google.com/mail/u/0/#inbox');
+      }).catch((error) => {
+        console.log(error);
+      })
+    }
+
     return (
       <AnimatePresence>
         {open && <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{type: 'spring', duration: 0.5}} className='absolute w-screen h-screen bg-black bg-opacity-50'>
@@ -112,8 +124,8 @@ const Profile = (props) => {
               <p className={subscription ? 'text-green-500': 'text-red-500'}>{subscription ? "Subscribed" : "Free User"}</p>    
               <p className='text-sm font-light'>Phone number</p>
               {!editPhoneNumber && <div className='flex items-center gap-2'>
-                <p className={`font-light ${phnumber == "" ? "text-red-500": ""}`}>{phnumber == "" ? "unavailable": phnumber}</p>
-                <i className='p-2 text-lg rounded-md hover:bg-red-500 hover:bg-opacity-50 hover:text-red-500' onClick={()=> {setEditPhoneNumber(true)}}><HiOutlinePencilAlt/></i>
+                <p className={`font-light ${phnumber == null ? "text-red-500": ""}`}>{phnumber == null ? "unavailable": phnumber}</p>
+                <i className='p-2 text-lg transition-all duration-200 ease-in-out rounded-md hover:bg-red-500 hover:bg-opacity-50 hover:text-red-500' onClick={()=> {setEditPhoneNumber(true)}}><HiOutlinePencilAlt/></i>
               </div>}
               {editPhoneNumber && <div className='flex items-center'>
                 <input
@@ -124,9 +136,9 @@ const Profile = (props) => {
                   onChange={(e)=>{setPhoneNumber(e.target.value)}}
                   className="w-full h-full bg-transparent border rounded-l-lg border-neutral-800 focus:border-neutral-800 focus:ring-0"
                 ></input>
-                <button className='h-full p-2 text-lg bg-neutral-800 rounded-r-md hover:bg-neutral-700' onClick={()=>{setEditPhoneNumber(false)}}><MdOutlineSaveAlt/></button>
+                <button className='h-full p-2 text-lg transition-all duration-200 ease-in-out bg-neutral-800 rounded-r-md hover:bg-neutral-700' onClick={()=>{setEditPhoneNumber(false)}}><MdOutlineSaveAlt/></button>
               </div>}
-              {email_verified ? <p className='font-bold text-green-500'>Email verified</p> : <p className='flex items-center gap-1'>Verify email <i className='text-lg'><MdKeyboardArrowRight/></i></p>} 
+              {email_verified ? <p className='font-bold text-green-500'>Email verified</p> : <p className='flex items-center gap-1 transition-all duration-200 ease-in-out cursor-pointer hover:text-accent' onClick={() => {emailVerification(currentUser)}}>Verify email <i className='text-lg'><MdKeyboardArrowRight/></i></p>} 
             </div>
             <div className='p-2 text-sm text-red-500 border border-red-500 rounded-md cursor-default select-none w-fit hover:bg-red-500 hover:text-white justify-self-end' onClick={() => {setResetConfirm(true)}}>Reset password</div>
             <div className='p-2 text-sm text-red-500 border border-red-500 rounded-md cursor-default select-none w-fit hover:bg-red-500 hover:text-white justify-self-end' onClick={() => {setDeleteConfirm(true)}}>Delete account</div>

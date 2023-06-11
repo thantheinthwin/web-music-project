@@ -7,8 +7,9 @@ import { Dashboard } from "./components/Dashboard";
 
 import { AnimatePresence } from 'framer-motion';
 
-import {app} from './config/firebase.config';
+import { app } from './config/firebase.config';
 import { getAuth } from "firebase/auth";
+
 import { validateUser } from "./api";
 import { useStateValue } from "./context/StateProvider";
 import { actionType } from "./context/reducer";
