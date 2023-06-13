@@ -7,12 +7,12 @@ import { IoCloseOutline } from 'react-icons/io5';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import {AiOutlineInfoCircle} from 'react-icons/ai'
 
-import { removeUser } from '../../api';
+import { removeUser, updatePhoneNumber } from '../../api';
 import { actionType } from '../../context/reducer';
 import { useStateValue } from '../../context/StateProvider';
 
 import { app } from '../../config/firebase.config';
-import { deleteUser as deleteAuthUser, getAuth, sendEmailVerification, signOut, updatePassword } from '@firebase/auth';
+import { deleteUser as deleteAuthUser, getAuth, sendEmailVerification, updatePassword } from '@firebase/auth';
 
 const Profile = (props) => {
     const {open, handleClose} = props;
@@ -27,13 +27,14 @@ const Profile = (props) => {
     const imageURL = user?.user?.imageURL;
     const phnumber = user?.user?.ph_number;
     const email_verified = user?.user?.email_verified;
-    const userid = user?.user?._id;
+    const _id = user?.user?._id;
+    const user_id = user?.user?.user_id;
 
     // console.log(user);
 
     const firebaseAuth = getAuth(app);
     const currentUser = firebaseAuth.currentUser;
-    console.log(currentUser);
+    // console.log(currentUser);
 
     const [phoneNumber, setPhoneNumber] = useState("");
     const [editPhoneNumber, setEditPhoneNumber] = useState(false);
@@ -83,10 +84,23 @@ const Profile = (props) => {
       setPasswd(newData)
     }
 
-    const handleSubmit = async (newPasswd) => {
+    const handleSubmitPasswd = async (newPasswd) => {
       updatePassword(currentUser, newPasswd).then(() => {
         setResetConfirm(false);
         // console.log("Password changed successfully");
+      }).catch((error) => {
+        console.log(error);
+      })
+    }
+
+    const handleSubmitPhnumber = async (ph_number) => {
+      updatePhoneNumber(user_id, ph_number).then((res) => {
+        setEditPhoneNumber(false);
+        dispatch({
+          type: actionType.SET_USER,
+          user: res,
+        })
+        // console.log(res);
       }).catch((error) => {
         console.log(error);
       })
@@ -124,19 +138,19 @@ const Profile = (props) => {
               <p className={subscription ? 'text-green-500': 'text-red-500'}>{subscription ? "Subscribed" : "Free User"}</p>    
               <p className='text-sm font-light'>Phone number</p>
               {!editPhoneNumber && <div className='flex items-center gap-2'>
-                <p className={`font-light ${phnumber == null ? "text-red-500": ""}`}>{phnumber == null ? "unavailable": phnumber}</p>
+                <p className={`font-light ${phnumber == '' ? "text-red-500": ""}`}>{phnumber == '' ? "unavailable": phnumber}</p>
                 <i className='p-2 text-lg transition-all duration-200 ease-in-out rounded-md hover:bg-red-500 hover:bg-opacity-50 hover:text-red-500' onClick={()=> {setEditPhoneNumber(true)}}><HiOutlinePencilAlt/></i>
               </div>}
               {editPhoneNumber && <div className='flex items-center'>
                 <input
                   id='tel'
                   type="tel"
-                  placeholder={phnumber !== null ? phnumber : 'Enter your phone number'}
+                  placeholder={phnumber !== '' ? phnumber : 'Enter your phone number'}
                   value={phoneNumber}
                   onChange={(e)=>{setPhoneNumber(e.target.value)}}
                   className="w-full h-full bg-transparent border rounded-l-lg border-neutral-800 focus:border-neutral-800 focus:ring-0"
                 ></input>
-                <button className='h-full p-2 text-lg transition-all duration-200 ease-in-out bg-neutral-800 rounded-r-md hover:bg-neutral-700' onClick={()=>{setEditPhoneNumber(false)}}><MdOutlineSaveAlt/></button>
+                <button className='h-full p-2 text-lg transition-all duration-200 ease-in-out bg-neutral-800 rounded-r-md hover:bg-neutral-700' onClick={()=>{handleSubmitPhnumber(phoneNumber)}}><MdOutlineSaveAlt/></button>
               </div>}
               {email_verified ? <p className='font-bold text-green-500'>Email verified</p> : <p className='flex items-center gap-1 transition-all duration-200 ease-in-out cursor-pointer hover:text-accent' onClick={() => {emailVerification(currentUser)}}>Verify email <i className='text-lg'><MdKeyboardArrowRight/></i></p>} 
             </div>
@@ -189,7 +203,7 @@ const Profile = (props) => {
                     </div>
                   </form>
                   <div className='flex items-center gap-2'>
-                    {matchPassword ? <div className='w-full p-2 text-center bg-green-500 rounded-md cursor-default select-none' onClick={() => {handleSubmit(passwd.newPasswd)}}>Confirm</div> : <div className='w-full p-2 text-center rounded-md cursor-default select-none bg-neutral-700'>Nope</div>}
+                    {matchPassword ? <div className='w-full p-2 text-center bg-green-500 rounded-md cursor-default select-none' onClick={() => {handleSubmitPasswd(passwd.newPasswd)}}>Confirm</div> : <div className='w-full p-2 text-center rounded-md cursor-default select-none bg-neutral-700'>Nope</div>}
                     <div className='w-full p-2 text-center bg-red-500 rounded-md cursor-default select-none' onClick={() => {setResetConfirm(false)}}>Cancel</div>
                   </div>
                 </div>
@@ -203,7 +217,7 @@ const Profile = (props) => {
               <div className='fixed top-0 bottom-0 left-0 right-0 grid gap-2 p-5 m-auto rounded-md bg-neutral-900 h-fit w-[calc(100%-3rem)] md:w-96'>
                 <p className='text-center'>Are you sure you want to delete you account?</p>
                 <div className='flex gap-2'>
-                  <div className='w-full p-2 text-center bg-red-500 rounded-md cursor-default select-none' onClick={() => {deleteUser(currentUser, userid)}}>Delete</div>
+                  <div className='w-full p-2 text-center bg-red-500 rounded-md cursor-default select-none' onClick={() => {deleteUser(currentUser, _id)}}>Delete</div>
                   <div className='w-full p-2 text-center bg-green-500 rounded-md cursor-default select-none' onClick={() => {setDeleteConfirm(false)}}>Cancel</div>
                 </div>
               </div>

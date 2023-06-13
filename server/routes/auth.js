@@ -81,7 +81,6 @@ router.post('/signup', async (req, res) => {
     }
 })
 
-
 // Creating new User
 const newUserData = async (decodeValue, req, res) => {
     const newUser = new user({
@@ -119,7 +118,7 @@ const updateUserData = async (decodeValue, req, res) => {
             filter, 
             {
                 auth_time : decodeValue.auth_time,
-                email_verified : decodeValue.email_verified,
+                email_verified : decodeValue.email_verified, 
             },
             options
         );
@@ -155,6 +154,35 @@ router.delete('/deleteUser/:id', async (req, res) => {
         return res.status(200).send({success: true, msg: "User deleted"});
     } else {
         return res.status(500).send({success: false, msg: "User not found"});
+    }
+})
+
+// Updating phone number
+router.post('/updatePhoneNumber/:id/:ph_number', async (req, res) => {
+    const uid = req.params.id;
+    const ph_number = req.params.ph_number;
+
+    const options = {
+        upsert: true,
+        new: true,
+    }
+
+    if(!uid || !ph_number){
+        return res.status(500).send({message: "Input invalid"})
+    }
+    else {
+        try {
+            const result = await user.findOneAndUpdate(
+                {user_id: uid},
+                {
+                    ph_number: ph_number
+                },
+                options
+            );
+            res.status(200).send({user: result});
+        } catch (error) {
+            res.status(400).send({success: false, message: error});
+        }
     }
 })
 

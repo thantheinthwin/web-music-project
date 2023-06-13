@@ -118,3 +118,12 @@ export const removeArtist = async (artistId) => {
         return null;
     }
 }
+
+export const updatePhoneNumber = async (user_id, ph_number) => {
+    try {
+        const res = await axios.post(`${baseURL}api/users/updatePhoneNumber/${user_id}/${ph_number}`)
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+}
