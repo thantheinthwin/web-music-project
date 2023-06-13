@@ -128,15 +128,15 @@ const Profile = (props) => {
             </div>
             <div className='grid gap-2'>
               <img src={imageURL} alt="profile pic" className='w-24 rounded-lg'/>
-              <p className='text-sm font-light'>Username</p>
-              <p>{username}</p>
-              <p className='text-sm font-light'>Email</p>
-              <p>{email}</p>
-              <p className='text-sm font-light'>Role</p>
+              <p className='font-medium'>Username</p>
+              <p className='font-light'>{username}</p>
+              <p className='font-medium'>Email</p>
+              <p className='font-light'>{email}</p>
+              <p className='font-medium'>Role</p>
               <p className={`px-2 py-1 text-xs rounded-full w-fit ${role === "admin" ? "bg-red-500" : "bg-green-500"}`}>{role}</p>
-              <p className='text-sm font-light'>Subscription</p>
-              <p className={subscription ? 'text-green-500': 'text-red-500'}>{subscription ? "Subscribed" : "Free User"}</p>    
-              <p className='text-sm font-light'>Phone number</p>
+              <p className='font-medium'>Subscription</p>
+              <p className={`cursor-default font-light border w-fit py-1 px-2 rounded-md select-none ${subscription ? 'text-green-500 border-green-500': 'text-red-500 border-red-500'}`}>{subscription ? "Subscribed" : "Free User"}</p>    
+              <p className='font-medium'>Phone number</p>
               {!editPhoneNumber && <div className='flex items-center gap-2'>
                 <p className={`font-light ${phnumber == '' ? "text-red-500": ""}`}>{phnumber == '' ? "unavailable": phnumber}</p>
                 <i className='p-2 text-lg transition-all duration-200 ease-in-out rounded-md hover:bg-red-500 hover:bg-opacity-50 hover:text-red-500' onClick={()=> {setEditPhoneNumber(true)}}><HiOutlinePencilAlt/></i>

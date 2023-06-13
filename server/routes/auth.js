@@ -186,4 +186,24 @@ router.post('/updatePhoneNumber/:id/:ph_number', async (req, res) => {
     }
 })
 
+router.get('/changeAccountType/:id', async (req, res) => {
+    const options = {
+        upsert: true,
+        new: true,
+    }
+
+    try {
+        const result = await user.findOneAndUpdate(
+            {user_id: req.params.id},
+            {
+                role: "artist"
+            },
+            options
+        )
+        res.status(200).send({user: result});
+    } catch (error) {
+        res.status(400).send({success: false, message: error});
+    }
+})
+
 module.exports = router;

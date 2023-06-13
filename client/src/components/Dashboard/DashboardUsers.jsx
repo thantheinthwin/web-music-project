@@ -46,7 +46,7 @@ const DashboardUsers = () => {
       {/* filter */}
 
       {/* tabular data form */}
-      <div className="relative grid items-center justify-start grid-flow-col grid-cols-4 gap-3 p-4 m-2 border border-gray-300 rounded-md col-span-full lg:grid-cols-6">
+      <div className="relative grid items-center justify-start grid-flow-col grid-cols-4 gap-3 p-4 m-2 transition-all duration-200 ease-in-out border border-gray-300 rounded-md col-span-full lg:grid-cols-6">
         {/* total number of users */}
         <div className="col-span-full">
           <p className="text-sm font-semibold">
@@ -74,26 +74,13 @@ const DashboardUsers = () => {
           </div>
 
           {/* table body content */}
-          {allUsers && !isMobile && (
+          {allUsers && (
             <motion.div
               variants={container}
               initial="hidden"
               animate="show"
               exit="exit"
-              className="grid gap-1 col-span-full"
-            >
-              {allUsers?.map((data, i) => (
-                <DashboardUserCard key={i} data={data} index={i} item={item} />
-              ))}
-            </motion.div>
-          )}
-          {allUsers && isMobile && (
-            <motion.div
-              variants={container}
-              initial="hidden"
-              animate="show"
-              exit="exit"
-              className="grid gap-1 col-span-full"
+              className="grid gap-1 overflow-y-scroll col-span-full max-h-96 scrollbar-hide"
             >
               {allUsers?.map((data, i) => (
                 <DashboardUserCard key={i} data={data} index={i} item={item} />

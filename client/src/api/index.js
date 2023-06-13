@@ -127,3 +127,12 @@ export const updatePhoneNumber = async (user_id, ph_number) => {
         return null;
     }
 }
+
+export const changeAccount = async (user_id) => {
+    try {
+        const res = await axios.get(`${baseURL}api/users/changeAccountType/${user_id}`)
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+}

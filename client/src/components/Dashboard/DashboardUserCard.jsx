@@ -24,32 +24,6 @@ const DashboardUserCard = ({data, index, item}) => {
     const [{allUsers}, dispatch] = useStateValue();
 
     const firebaseAuth = getAuth(app);
-    
-    // const deleteUser = (id, uid) => {
-    //   console.log(firebaseAuth);
-    //   deleteAuthUser("DdJpcO4FTifk8yKiUYyckzqgeDB2").then(() => {
-    //     console.log("successful");
-    //   }).catch((err) => {
-    //     console.log(err);
-    //   })
-    // }
-    // const deleteUser = (uid) => {
-    //   console.log(uid);
-    //   // Delete user in firebase
-    //   deleteAuthUser(firebaseAuth, uid).then(() => {
-    //     console.log("successfull deleted")
-    //   }).catch((error) => {
-    //     console.log(error)
-    //   })
-    //   // removeUser(userId).then((res) => {
-    //   //   if(res) {
-    //   //     dispatch({
-    //   //       type: actionType.SET_ALL_USERS,
-    //   //       allUsers: data.data,
-    //   //     })
-    //   //   }
-    //   // })
-    // }
 
     const deleteUser = (uid) => {
       removeUser(uid).then((res) => {
@@ -188,13 +162,13 @@ const DashboardUserCard = ({data, index, item}) => {
                     </p>
                     <p className="grid grid-cols-5 col-span-1 text-sm break-all">
                       <span className="col-span-1 font-semibold">Paid :</span>
-                      <p className="col-span-4 text-sm font-semibold break-all">
+                      <span className="col-span-4 text-sm font-semibold break-all">
                         {data.subscription ? (
                           <span>Subscribed</span>
                         ) : (
                           <span>Free user</span>
                         )}
-                      </p>
+                      </span>
                     </p>
 
                     <p className="grid grid-cols-5 col-span-1 text-sm break-all">
@@ -266,7 +240,7 @@ const DashboardUserCard = ({data, index, item}) => {
     }
   
     return(
-      <div className={`px-2 py-1 text-sm rounded-2xl w-fit ${bgColor}`}>{title}</div>
+      <span className={`px-2 py-1 text-sm rounded-2xl w-fit ${bgColor}`}>{title}</span>
     )
   }
 

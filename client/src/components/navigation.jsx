@@ -15,6 +15,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useStateValue } from '../context/StateProvider';
 
 import { isActiveDashboardNav, isNotActiveDashboardNav } from '../utils/styles';
+import { changeAccount } from '../api';
+import { actionType } from '../context/reducer';
 
 const Navigation = (props) => {  
   const {openProfile} = props;
@@ -24,6 +26,7 @@ const Navigation = (props) => {
   const subscription = user?.user?.subscription;
   const email = user?.user?.email;
   const role = user?.user?.role;
+  const user_id = user?.user?.user_id;
 
   let userIcon ;
 
@@ -96,6 +99,18 @@ const Navigation = (props) => {
     }
   ]
 
+  // Changing account type
+  const changeAccountType = (user_id) => {
+    changeAccount(user_id).then((res) => {
+      dispatch({
+        type: actionType.SET_USER,
+        user: res
+      })
+    }).catch((error) => {
+      console.log(error);
+    }).then(() => {alert("User Account Changed")})
+  }
+
   return (
     <div className='flex items-center justify-between w-full text-white bg-neutral-900'>
         {!isDashboardBranch && !isMobile && <div className='flex gap-1'>
@@ -145,7 +160,7 @@ const Navigation = (props) => {
               </div>}
               <div className="py-1" role="none">
                 <div className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out select-none hover:bg-neutral-700' onClick={() => {openProfile(); setIsMenu(false)}}>Profile</div>
-                {(role === 'member') && <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>Change account type</NavLink>}
+                {(role === 'member') && <div className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700' onClick={() => {changeAccountType(user_id)}}>Change account type</div>}
                 {role === 'artist' && <NavLink to={"/"} className='block px-4 py-2 text-sm transition-all duration-200 ease-in-out hover:bg-neutral-700'>My Songs</NavLink>}
               </div>
               {(isAdmin && !isDashboardBranch)  && <div className='py-1' role='none'>
