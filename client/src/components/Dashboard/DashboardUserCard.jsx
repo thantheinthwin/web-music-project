@@ -4,14 +4,14 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { AiOutlineMore } from 'react-icons/ai';
 import { HiOutlinePencil } from 'react-icons/hi';
-import { BsTrash } from 'react-icons/bs';
+import { BsTrash, BsInfoSquare } from 'react-icons/bs';
 
 import { actionType } from '../../context/reducer';
 import { useStateValue } from '../../context/StateProvider';
 import { removeUser } from '../../api';
 
 import { app } from '../../config/firebase.config';
-import { deleteUser as deleteAuthUser, getAuth } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 
 const DashboardUserCard = ({data, index, item}) => {
     const createdAt = moment(new Date(data.createdAt)).format("MMM Do YY");
@@ -71,7 +71,7 @@ const DashboardUserCard = ({data, index, item}) => {
                       </p>
                       <span
                         className="col-span-1 row-span-1 p-2 text-center text-white transition-all duration-200 ease-in-out bg-green-500 rounded-lg hover:bg-green-600"
-                        onClick={() => deleteUser(data._id)}
+                        onClick={() => deleteUser(data.user_id)}
                       >
                         Yes
                       </span>
@@ -107,7 +107,7 @@ const DashboardUserCard = ({data, index, item}) => {
             <p className="col-span-1 text-sm text-center break-all">
               {createdAt}
             </p>
-            <div className="grid items-center justify-center col-span-1">
+            <div className="flex items-center justify-center col-span-1 gap-2">
               <Role title={data.role} />
             </div>
           </motion.div>
@@ -209,7 +209,7 @@ const DashboardUserCard = ({data, index, item}) => {
                 </p>
                 <span
                   className="col-span-1 row-span-1 p-2 text-center text-white transition-all duration-200 ease-in-out bg-green-500 rounded-lg hover:bg-green-600 hover:shadow-md"
-                  onClick={() => deleteUser(data._id)}
+                  onClick={() => deleteUser(data.user_id)}
                 >
                   Yes
                 </span>

@@ -147,14 +147,18 @@ router.get("/getUsers", async (req, res) => {
 
 // Deleting a user
 router.delete('/deleteUser/:id', async (req, res) => {
-    const filter = { _id: req.params.id };
+    const filter = { user_id: req.params.id };
     const result = await user.deleteOne(filter);
 
-    if (result.deletedCount === 1){
-        return res.status(200).send({success: true, msg: "User deleted"});
-    } else {
-        return res.status(500).send({success: false, msg: "User not found"});
-    }
+    admin.auth().deleteUser(req.params.id).then(() => {
+        if (result.deletedCount === 1){
+            return res.status(200).send({success: true, msg: "User deleted"});
+        } else {
+            return res.status(500).send({success: false, msg: "User not found"});
+        }
+    }).catch((error) => {
+        return res.status(400).send({message: error})
+    })
 })
 
 // Updating phone number

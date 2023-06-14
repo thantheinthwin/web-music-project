@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 
 dotenv.config({path: '.env'});
 
@@ -9,6 +10,7 @@ const app = express();
 
 app.use(cors({origin: true}));
 app.use(express.json());    // Converting form data into json
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
     return res.json("Hi there....")
